@@ -4,7 +4,7 @@ const ATTEMPT_KEY = "diag_windows_attempt_used_v1";
 const START_KEY = "diag_windows_start_ts_v1";
 
 // Cole aqui a URL do seu Google Apps Script Web App (passo abaixo)
-const SHEETS_WEBAPP_URL = "COLE_AQUI_A_URL_DO_WEBAPP";
+const SHEETS_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbzbpqy_jPs93pF8VanfiZ-WDGWqJs-k7MwWjjYWbsEV1JdiJlYnfgXsYGlKB06bdHE/exec";
 
 // Gabarito (múltipla escolha)
 const ANSWERS = { q1:"B", q2:"C", q3:"B", q4:"B", q5:"B", q6:"C" };
