@@ -1,0 +1,49 @@
+*{box-sizing:border-box}
+body{
+  margin:0; font-family:system-ui,Segoe UI,Arial,sans-serif;
+  background:#0b1220; color:#eaf0ff;
+}
+.wrap{max-width:980px; margin:24px auto; padding:0 16px}
+.card{
+  background:#121a2c; border:1px solid #1e2a44;
+  border-radius:16px; padding:18px; box-shadow:0 16px 40px rgba(0,0,0,.35);
+}
+h1{margin:0 0 8px}
+h2{margin:18px 0 10px}
+.muted{opacity:.85}
+.tiny{font-size:12px}
+.hide{display:none}
+.login{
+  display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top:12px
+}
+input, textarea{
+  width:100%; max-width:420px;
+  padding:12px; border-radius:12px; border:1px solid #2b3a61;
+  background:#0d1426; color:#eaf0ff;
+}
+textarea{max-width:100%}
+button{
+  padding:12px 16px; border-radius:12px; border:0;
+  background:#3b82f6; color:white; font-weight:700; cursor:pointer;
+}
+button:hover{filter:brightness(1.05)}
+.topbar{
+  margin-top:12px; display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
+  padding:12px; border-radius:14px; background:#0d1426; border:1px solid #2b3a61;
+}
+.timer{font-size:18px}
+.q{
+  padding:14px; border-radius:14px;
+  background:#0d1426; border:1px solid #2b3a61; margin:10px 0;
+}
+.q label{display:block; margin:6px 0; cursor:pointer}
+.actions{margin-top:14px; display:flex; flex-direction:column; gap:8px}
+.status{
+  margin-top:10px; padding:12px; border-radius:12px; border:1px dashed #2b3a61;
+  background:#0d1426;
+}
+.lock{
+  margin-top:12px; padding:14px; border-radius:14px;
+  border:1px solid #7c2d12; background:#2a120d;
+}
+footer{margin-top:14px; text-align:center}
