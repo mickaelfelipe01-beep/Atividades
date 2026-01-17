@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Avaliação Diagnóstica - Windows</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header class="card">
+      <h1>Avaliação Diagnóstica — Windows</h1>
+      <p class="muted">
+        Tempo: <b>60 minutos</b> • Apenas <b>1 tentativa</b> por dispositivo/navegador.
+      </p>
+
+      <div id="lockBox" class="lock hide">
+        <h2>✅ Tentativa já utilizada</h2>
+        <p>
+          Este dispositivo já enviou uma resposta. Se você acredita que foi um erro, fale com o professor.
+        </p>
+      </div>
+
+      <div id="loginBox" class="login">
+        <label for="studentName">Digite seu nome completo:</label>
+        <input id="studentName" type="text" placeholder="Ex: João Pedro Silva" autocomplete="name" />
+        <button id="startBtn">Começar</button>
+        <p class="tiny muted">
+          Ao começar, o cronômetro inicia e não pode ser pausado.
+        </p>
+      </div>
+
+      <div id="topBar" class="topbar hide">
+        <div><b>Aluno:</b> <span id="who"></span></div>
+        <div class="timer">
+          ⏳ <span id="time">60:00</span>
+        </div>
+      </div>
+    </header>
+
+    <main id="formBox" class="card hide">
+      <form id="quizForm">
+
+        <h2>Parte 1 — Múltipla escolha</h2>
+
+        <div class="q">
+          <p><b>1.</b> O que é um Sistema Operacional (SO)?</p>
+          <label><input type="radio" name="q1" value="A" required> A) Um dispositivo físico do computador</label>
+          <label><input type="radio" name="q1" value="B"> B) O principal software que organiza e controla o computador</label>
+          <label><input type="radio" name="q1" value="C"> C) Um programa para acessar a internet</label>
+          <label><input type="radio" name="q1" value="D"> D) Um tipo de memória do computador</label>
+        </div>
+
+        <div class="q">
+          <p><b>2.</b> O Windows é:</p>
+          <label><input type="radio" name="q2" value="A" required> A) Um antivírus</label>
+          <label><input type="radio" name="q2" value="B"> B) Um navegador</label>
+          <label><input type="radio" name="q2" value="C"> C) Um sistema operacional</label>
+          <label><input type="radio" name="q2" value="D"> D) Um editor de texto</label>
+        </div>
+
+        <div class="q">
+          <p><b>3.</b> Qual componente armazena dados permanentemente (arquivos e programas)?</p>
+          <label><input type="radio" name="q3" value="A" required> A) Memória RAM</label>
+          <label><input type="radio" name="q3" value="B"> B) HD/SSD</label>
+          <label><input type="radio" name="q3" value="C"> C) Processador</label>
+          <label><input type="radio" name="q3" value="D"> D) Placa de vídeo</label>
+        </div>
+
+        <div class="q">
+          <p><b>4.</b> Qual componente é conhecido como “o cérebro do computador”?</p>
+          <label><input type="radio" name="q4" value="A" required> A) Placa-mãe</label>
+          <label><input type="radio" name="q4" value="B"> B) Processador</label>
+          <label><input type="radio" name="q4" value="C"> C) Fonte de alimentação</label>
+          <label><input type="radio" name="q4" value="D"> D) Gabinete</label>
+        </div>
+
+        <div class="q">
+          <p><b>5.</b> Ao minimizar uma janela, o que acontece?</p>
+          <label><input type="radio" name="q5" value="A" required> A) O programa é encerrado</label>
+          <label><input type="radio" name="q5" value="B"> B) A janela some temporariamente e fica na barra de tarefas</label>
+          <label><input type="radio" name="q5" value="C"> C) A janela ocupa a tela toda</label>
+          <label><input type="radio" name="q5" value="D"> D) O computador reinicia</label>
+        </div>
+
+        <div class="q">
+          <p><b>6.</b> Qual ação normalmente abre um menu de opções rápidas (contexto) no Windows?</p>
+          <label><input type="radio" name="q6" value="A" required> A) Clique esquerdo</label>
+          <label><input type="radio" name="q6" value="B"> B) Duplo clique esquerdo</label>
+          <label><input type="radio" name="q6" value="C"> C) Clique direito</label>
+          <label><input type="radio" name="q6" value="D"> D) Scroll (rodinha)</label>
+        </div>
+
+        <h2>Parte 2 — Discursivas</h2>
+
+        <div class="q">
+          <p><b>7.</b> Explique com suas palavras por que “sem sistema operacional o computador vira um caos”.</p>
+          <textarea name="q7" rows="4" required placeholder="3 a 6 linhas..."></textarea>
+        </div>
+
+        <div class="q">
+          <p><b>8.</b> Descreva a diferença entre Área de Trabalho, Menu Iniciar e Barra de tarefas (1 exemplo de uso de cada).</p>
+          <textarea name="q8" rows="4" required></textarea>
+        </div>
+
+        <div class="q">
+          <p><b>9.</b> Cite 3 funções do teclado além de “digitar” e dê 1 exemplo de atalho que você conhece.</p>
+          <textarea name="q9" rows="4" required></textarea>
+        </div>
+
+        <div class="q">
+          <p><b>10.</b> Explique a diferença entre minimizar e fechar e como reabrir uma janela minimizada.</p>
+          <textarea name="q10" rows="4" required></textarea>
+        </div>
+
+        <div class="actions">
+          <button type="submit" id="sendBtn">Enviar respostas</button>
+          <p class="tiny muted">
+            Ao enviar, a tentativa é bloqueada neste dispositivo.
+          </p>
+        </div>
+
+        <div id="status" class="status"></div>
+      </form>
+    </main>
+
+    <footer class="tiny muted">
+      © Avaliação diagnóstica — Turma de Informática
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
