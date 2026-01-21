@@ -174,7 +174,7 @@ $("quizForm").addEventListener("submit", async (e) => {
 });
 // ================== MODO PROFESSOR (OPÇÃO 2) ==================
 // Troque a senha abaixo por uma sua (não use "1234").
-const TEACHER_PASSWORD = "aluno Mickael";
+const TEACHER_PASSWORD = "aluno Benjamin";
 
 // Botão do professor
 const teacherBtn = document.getElementById("teacherBtn");
