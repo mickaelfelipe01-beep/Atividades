@@ -71,6 +71,12 @@ body{
   padding:18px;
 }
 
+.startCard .subtitle{
+  margin-top:6px;
+  margin-bottom:10px;
+  font-size:14px;
+}
+
 .h1{margin:0 0 8px; font-size:24px; letter-spacing:-.2px}
 .h2{margin:0 0 8px; font-size:20px; letter-spacing:-.2px}
 .muted{color:var(--muted)}
@@ -83,6 +89,15 @@ body{
   padding:10px 12px; border-radius:14px; font-size:13px;
 }
 
+/* Pills mais leves na tela inicial */
+.metaRow.pills{margin-top:10px}
+.metaItem.pill{
+  border-radius:999px;
+  padding:8px 12px;
+  font-weight:700;
+  background:#f8fafc;
+}
+
 .loginRow{display:flex; gap:10px; flex-wrap:wrap}
 input{
   flex:1;
@@ -93,7 +108,10 @@ input{
   background:#fff;
   outline:none;
 }
-input:focus{border-color:#94a3b8}
+input:focus{
+  border-color:#94a3b8;
+  box-shadow:0 0 0 4px rgba(148,163,184,.18);
+}
 
 .btn{
   border:0;
@@ -272,4 +290,10 @@ input:focus{border-color:#94a3b8}
   justify-content:center;
   gap:10px;
   font-size:12px;
+}
+
+/* Detalhe: botão disabled com cara de disabled (principalmente no Enviar) */
+button:disabled{
+  opacity:.65;
+  cursor:not-allowed;
 }
