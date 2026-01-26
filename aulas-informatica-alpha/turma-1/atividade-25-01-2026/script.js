@@ -226,6 +226,9 @@ function begin(){
 
   who.textContent = studentName;
 
+  // estado inicial do botão enviar
+  sendBtn.disabled = true;
+
   render();
   tick();
   timerInterval = setInterval(tick, 1000);
@@ -241,6 +244,18 @@ function tick(){
     sendBtn.disabled = true;
     nextBtn.disabled = true;
     lockAttempt();
+  }
+}
+
+// ================== VISIBILIDADE DO PRÓXIMO (REGRA DA Q10) ==================
+function updateNextVisibility(total){
+  const isLast = current === total - 1;
+
+  // Na questão 10 (última), o botão "Próximo" some
+  if(isLast){
+    nextBtn.classList.add("hide");
+  } else {
+    nextBtn.classList.remove("hide");
   }
 }
 
@@ -270,167 +285,4 @@ function render(){
     const btn = document.createElement("button");
     btn.type = "button";
     btn.className = "optBtn";
-    btn.innerHTML = `<div class="optKey">${key}.</div><div>${label}</div>`;
-    btn.addEventListener("click", () => handleAnswer(key));
-    optionsBox.appendChild(btn);
-  });
-
-  // nav
-  prevBtn.disabled = current === 0;
-  nextBtn.disabled = true; // só libera depois de responder
-
-  // Se já tinha respondido, mostra feedback e libera next
-  if(chosen){
-    showFeedback(chosen);
-    nextBtn.disabled = false;
-    disableOptions();
-  } else {
-    enableOptions();
-  }
-
-  // último item: mostra botão de enviar quando responder a última
-  submitRow.classList.toggle("hide", current !== total - 1);
-}
-
-function disableOptions(){
-  optionsBox.querySelectorAll("button").forEach(b => b.disabled = true);
-}
-function enableOptions(){
-  optionsBox.querySelectorAll("button").forEach(b => b.disabled = false);
-}
-
-// ================== DICA ==================
-hintBtn.addEventListener("click", () => {
-  const isHidden = hintBox.classList.contains("hide");
-  hintBox.classList.toggle("hide");
-  hintBtn.querySelector("span").textContent = isHidden ? "Ocultar dica" : "Mostrar dica";
-});
-
-// ================== RESPONDER ==================
-function handleAnswer(choice){
-  if(answers[current]) return; // não deixa trocar (igual o Gemini da imagem)
-
-  answers[current] = choice;
-  showFeedback(choice);
-  disableOptions();
-  nextBtn.disabled = false;
-
-  // Se for última, habilita envio (se tiver tempo)
-  if(current === QUESTIONS.length - 1 && getRemainingSeconds() > 0){
-    sendBtn.disabled = false;
-  }
-}
-
-function showFeedback(choice){
-  const q = QUESTIONS[current];
-  const isCorrect = choice === q.correct;
-
-  feedback.classList.remove("hide");
-  feedback.classList.toggle("ok", isCorrect);
-  feedback.classList.toggle("bad", !isCorrect);
-
-  fbTitle.textContent = isCorrect ? "✓ Isso mesmo!" : "✗ Quase!";
-  fbText.textContent = isCorrect
-    ? q.explain
-    : `Resposta correta: ${q.correct}. ${q.explain}`;
-}
-
-// ================== NAVEGAÇÃO ==================
-prevBtn.addEventListener("click", () => {
-  if(current === 0) return;
-  current--;
-  render();
-});
-
-nextBtn.addEventListener("click", () => {
-  if(current >= QUESTIONS.length - 1) return;
-  current++;
-  render();
-});
-
-// ================== ENVIAR PARA PLANILHA ==================
-sendBtn.addEventListener("click", async () => {
-  if(getRemainingSeconds() <= 0){
-    setStatus("⛔ Tempo esgotado. Não é possível enviar.");
-    lockAttempt();
-    return;
-  }
-
-  if(SHEETS_WEBAPP_URL.includes("COLE_AQUI")){
-    alert("Cole a URL do Web App (Apps Script) em SHEETS_WEBAPP_URL no script.js");
-    return;
-  }
-
-  // checa se respondeu tudo
-  for(let i=0;i<QUESTIONS.length;i++){
-    if(!answers[i]){
-      setStatus(`⚠️ Falta responder a questão ${i+1}.`);
-      return;
-    }
-  }
-
-  sendBtn.disabled = true;
-  setStatus("Enviando...");
-
-  const total = QUESTIONS.length;
-  let score = 0;
-  for(let i=0;i<total;i++){
-    if(answers[i] === QUESTIONS[i].correct) score++;
-  }
-
-  const payload = {
-    studentName,
-    startedAt: Number(localStorage.getItem(START_KEY)),
-    submittedAt: Date.now(),
-    remainingSeconds: getRemainingSeconds(),
-    answers: Object.fromEntries(
-      Object.entries(answers).map(([idx, val]) => [`q${Number(idx)+1}`, val])
-    ),
-    score,
-    total,
-    level: levelFromScore(score, total)
-  };
-
-  try{
-    const res = await fetch(SHEETS_WEBAPP_URL, {
-      method: "POST",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify(payload)
-    });
-
-    const text = await res.text();
-    if(!res.ok) throw new Error(text);
-
-    // trava tentativa
-    lockAttempt();
-
-    setStatus(`✅ Enviado! Pontuação: ${score}/${total} • Nível: ${payload.level}`);
-
-    // tela de resultado
-    quizCard.classList.add("hide");
-    resultCard.classList.remove("hide");
-    resultText.textContent = `Aluno: ${studentName} • Pontuação: ${score}/${total} • Nível: ${payload.level}`;
-    resultDetails.textContent = "Respostas registradas com sucesso na planilha.";
-
-  } catch(err){
-    console.error(err);
-    sendBtn.disabled = false;
-    setStatus("❌ Erro ao enviar. Verifique se o Web App está publicado como 'Qualquer pessoa' e a URL está correta.");
-  }
-});
-
-// ================== MODO PROFESSOR (RESET) ==================
-$("teacherBtn").addEventListener("click", () => {
-  const pass = prompt("Senha do professor para liberar nova tentativa:");
-  if(pass !== TEACHER_PASSWORD){
-    alert("Senha incorreta.");
-    return;
-  }
-
-  localStorage.removeItem(ATTEMPT_KEY);
-  localStorage.removeItem(START_KEY);
-  localStorage.removeItem(NAME_KEY);
-
-  alert("✅ Nova tentativa liberada neste dispositivo. Recarregando...");
-  location.reload();
-});
+    btn.inner
