@@ -11,7 +11,6 @@
 
   <link rel="stylesheet" href="style.css" />
 
-  <!-- Seu logo -->
   <link rel="icon" type="image/png" href="https://mickaelfelipe01-beep.github.io/Atividades/aulas-informatica-alpha/imagens/Design%20sem%20nome%20(8).png">
 </head>
 
@@ -33,16 +32,16 @@
     </header>
 
     <!-- LOGIN / REGRAS -->
-    <section id="startCard" class="card">
+    <section id="startCard" class="card startCard">
       <h1 class="h1">Atividade — Arquivos, Pastas e Organização</h1>
-      <p class="muted">
-        Você tem <b>60 minutos</b> para concluir. <b>1 tentativa</b> por dispositivo/navegador.
+      <p class="muted subtitle">
+        <b>60 minutos</b> • <b>10 questões</b> • <b>1 tentativa</b> por dispositivo/navegador
       </p>
 
-      <div class="metaRow">
-        <div class="metaItem">⏱️ <b>Duração:</b> 60 min</div>
-        <div class="metaItem">🧠 <b>Formato:</b> 10 questões</div>
-        <div class="metaItem">✅ <b>Envio:</b> automático</div>
+      <div class="metaRow pills">
+        <div class="metaItem pill">⏱️ 60 min</div>
+        <div class="metaItem pill">🧠 10 questões</div>
+        <div class="metaItem pill">✅ envio automático</div>
       </div>
 
       <div id="lockBox" class="lock hide">
@@ -56,7 +55,7 @@
       </div>
 
       <div id="loginBox" class="login">
-        <label class="label" for="studentName">Digite seu nome completo</label>
+        <label class="label" for="studentName">Nome completo</label>
         <div class="loginRow">
           <input id="studentName" type="text" placeholder="Ex: João Pedro Silva" autocomplete="name" />
           <button id="startBtn" class="btn btnPrimary">
@@ -64,7 +63,7 @@
             <span class="btnIcon">→</span>
           </button>
         </div>
-        <p class="tiny muted">Ao começar, o cronômetro inicia e não pode ser pausado.</p>
+        <p class="tiny muted footnote">Ao começar, o cronômetro inicia e não pode ser pausado.</p>
       </div>
 
       <div class="teacher">
@@ -97,9 +96,9 @@
       <!-- Dica -->
       <button id="hintBtn" class="hintBtn" type="button">
         <span>Mostrar dica</span>
-        <span class="chev">⌄</span>
+        <span class="chev" aria-hidden="true">⌄</span>
       </button>
-      <div id="hintBox" class="hintBox hide">
+      <div id="hintBox" class="hintBox hide" aria-live="polite">
         <div class="hintIcon">💡</div>
         <div id="hintText">Dica aqui…</div>
       </div>
@@ -111,7 +110,7 @@
       </div>
 
       <div id="submitRow" class="submitRow hide">
-        <button id="sendBtn" class="btn btnPrimary btnBig" type="button">
+        <button id="sendBtn" class="btn btnPrimary btnBig" type="button" disabled>
           <span>Enviar respostas</span>
           <span class="btnIcon">✅</span>
         </button>
