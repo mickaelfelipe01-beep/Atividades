@@ -7,7 +7,7 @@ const START_KEY   = "alfa_arquivos_pastas_start_ts_v1";
 const NAME_KEY    = "alfa_arquivos_pastas_student_v1";
 
 // Cole aqui a URL do Web App (depois de publicar o Apps Script)
-const SHEETS_WEBAPP_URL = "COLE_AQUI_SUA_URL_DO_WEBAPP";
+const SHEETS_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbyna1Q2IjB0JGukwax_X4h6ougKPBBE2ApR1QjMYHe2AZsYV4TTTC4j9T5EwkjSJr0k/exec";
 
 // Senha do professor para liberar nova tentativa neste dispositivo
 const TEACHER_PASSWORD = "troque-esta-senha";
