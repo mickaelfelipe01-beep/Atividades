@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Atividade — Arquivos e Pastas</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Seu logo -->
+  <link rel="icon" type="image/png" href="https://mickaelfelipe01-beep.github.io/Atividades/aulas-informatica-alpha/imagens/Design%20sem%20nome%20(8).png">
+</head>
+
+<body>
+  <div class="wrap">
+    <header class="top">
+      <div class="brand">
+        <img class="logo" src="https://mickaelfelipe01-beep.github.io/Atividades/aulas-informatica-alpha/imagens/Design%20sem%20nome%20(8).png" alt="Instituto ALFA">
+        <div>
+          <div class="brandTitle">Instituto ALFA</div>
+          <div class="brandSub">Formando vencedores!</div>
+        </div>
+      </div>
+
+      <div class="statusPill">
+        <span class="dot"></span>
+        <span>Online</span>
+      </div>
+    </header>
+
+    <!-- LOGIN / REGRAS -->
+    <section id="startCard" class="card">
+      <h1 class="h1">Atividade — Arquivos, Pastas e Organização</h1>
+      <p class="muted">
+        Você tem <b>60 minutos</b> para concluir. <b>1 tentativa</b> por dispositivo/navegador.
+      </p>
+
+      <div class="metaRow">
+        <div class="metaItem">⏱️ <b>Duração:</b> 60 min</div>
+        <div class="metaItem">🧠 <b>Formato:</b> 10 questões</div>
+        <div class="metaItem">✅ <b>Envio:</b> automático</div>
+      </div>
+
+      <div id="lockBox" class="lock hide">
+        <div class="lockIcon">🔒</div>
+        <div>
+          <h2 class="h2">Apenas uma tentativa!</h2>
+          <p class="muted">
+            Este dispositivo já enviou. Se foi erro, fale com o professor.
+          </p>
+        </div>
+      </div>
+
+      <div id="loginBox" class="login">
+        <label class="label" for="studentName">Digite seu nome completo</label>
+        <div class="loginRow">
+          <input id="studentName" type="text" placeholder="Ex: João Pedro Silva" autocomplete="name" />
+          <button id="startBtn" class="btn btnPrimary">
+            <span>Começar</span>
+            <span class="btnIcon">→</span>
+          </button>
+        </div>
+        <p class="tiny muted">Ao começar, o cronômetro inicia e não pode ser pausado.</p>
+      </div>
+
+      <div class="teacher">
+        <button type="button" id="teacherBtn" class="btn btnGhost">🔑 Professor: liberar nova tentativa</button>
+        <p class="tiny muted">Use somente se precisar dar outra chance neste dispositivo.</p>
+      </div>
+    </section>
+
+    <!-- TOPBAR (Aluno + timer) -->
+    <section id="topBar" class="topbar hide">
+      <div class="chip">👤 <b>Aluno:</b> <span id="who"></span></div>
+      <div class="timer">⏳ <span id="time">60:00</span></div>
+    </section>
+
+    <!-- QUIZ -->
+    <section id="quizCard" class="card hide">
+      <div class="qHeader">
+        <div class="qNumber" id="qNumber">1.</div>
+        <div class="qText" id="qText">Pergunta</div>
+      </div>
+
+      <div class="options" id="options"></div>
+
+      <!-- Feedback (verde/vermelho) -->
+      <div id="feedback" class="feedback hide">
+        <div class="fbTitle" id="fbTitle">Isso mesmo!</div>
+        <div class="fbText" id="fbText">Explicação</div>
+      </div>
+
+      <!-- Dica -->
+      <button id="hintBtn" class="hintBtn" type="button">
+        <span>Mostrar dica</span>
+        <span class="chev">⌄</span>
+      </button>
+      <div id="hintBox" class="hintBox hide">
+        <div class="hintIcon">💡</div>
+        <div id="hintText">Dica aqui…</div>
+      </div>
+
+      <div class="navRow">
+        <button id="prevBtn" class="btn btnGhost" type="button">Voltar</button>
+        <div class="progress" id="progress">Questão 1 de 10</div>
+        <button id="nextBtn" class="btn btnPrimary" type="button">Próximo</button>
+      </div>
+
+      <div id="submitRow" class="submitRow hide">
+        <button id="sendBtn" class="btn btnPrimary btnBig" type="button">
+          <span>Enviar respostas</span>
+          <span class="btnIcon">✅</span>
+        </button>
+        <p class="tiny muted">Ao enviar, a tentativa é bloqueada neste dispositivo.</p>
+      </div>
+
+      <div id="status" class="status"></div>
+    </section>
+
+    <!-- RESULTADO -->
+    <section id="resultCard" class="card hide">
+      <h2 class="h2">Resultado</h2>
+      <p id="resultText" class="muted"></p>
+      <div class="status" id="resultDetails"></div>
+    </section>
+
+    <footer class="footer">
+      <span class="muted">© Atividade — Turma de Informática</span>
+      <span class="muted">•</span>
+      <span class="muted">Instituto ALFA</span>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
