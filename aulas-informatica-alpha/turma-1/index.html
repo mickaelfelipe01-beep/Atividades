@@ -1,1 +1,867 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Atividade — Arquivos, Pastas e Organização</title>
+  <style>
+    :root{
+      --bg:#f4f7fb;
+      --card:#ffffff;
+      --text:#0f172a;
+      --muted:#64748b;
+      --line:#e2e8f0;
+      --primary:#2563eb;
+      --primary2:#1d4ed8;
+      --warn-bg:#fff7ed;
+      --warn-line:#fdba74;
+      --ok:#16a34a;
+      --shadow:0 12px 28px rgba(15,23,42,.10);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue";
+      background:var(--bg);
+      color:var(--text);
+    }
+    .wrap{
+      max-width:860px;
+      margin:22px auto;
+      padding:0 16px 40px;
+    }
+    /* Header (igual vibe do print) */
+    .topbar{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:14px 16px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      min-width:0;
+    }
+    .brand img{
+      width:44px; height:44px; border-radius:12px;
+      object-fit:cover; border:1px solid var(--line);
+      background:#fff;
+    }
+    .brand .txt{min-width:0}
+    .brand .txt .title{
+      font-weight:800; font-size:18px; line-height:1.1;
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    }
+    .brand .txt .tag{
+      font-size:13px; color:var(--muted);
+      margin-top:2px;
+    }
+    .status{
+      display:flex; align-items:center; gap:10px;
+      padding:10px 12px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:#fff;
+      font-weight:700;
+      color:#0b1220;
+      user-select:none;
+    }
+    .dot{
+      width:10px;height:10px;border-radius:50%;
+      background:var(--ok);
+      box-shadow:0 0 0 4px rgba(22,163,74,.15);
+    }
 
+    /* Card principal */
+    .card{
+      margin-top:16px;
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:18px 18px 16px;
+    }
+    .h1{
+      font-size:34px;
+      letter-spacing:-.02em;
+      margin:4px 0 10px;
+      font-weight:900;
+    }
+    .sub{
+      color:var(--muted);
+      font-size:16px;
+      margin:0 0 14px;
+      line-height:1.35;
+    }
+    .chips{
+      display:flex; flex-wrap:wrap;
+      gap:10px; margin:14px 0 6px;
+    }
+    .chip{
+      display:inline-flex; align-items:center; gap:10px;
+      background:#f8fafc;
+      border:1px solid var(--line);
+      padding:10px 12px;
+      border-radius:999px;
+      color:#0b1220;
+      font-weight:700;
+      font-size:14px;
+    }
+    .chip span{color:var(--muted); font-weight:700}
+    .chip strong{font-weight:900}
+    .warn{
+      margin-top:12px;
+      border:1px solid var(--warn-line);
+      background:var(--warn-bg);
+      border-radius:16px;
+      padding:12px 12px;
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+    }
+    .warn .ico{
+      width:34px;height:34px;border-radius:12px;
+      background:#ffedd5;
+      display:flex;align-items:center;justify-content:center;
+      border:1px solid #fed7aa;
+      font-weight:900;
+    }
+    .warn b{display:block; margin-bottom:4px}
+    .warn p{margin:0; color:#7c2d12}
+
+    /* Form / Prova */
+    .grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:12px;
+      margin-top:14px;
+    }
+    label{
+      font-size:13px; font-weight:800;
+      color:#0b1220;
+      display:block;
+      margin-bottom:6px;
+    }
+    input{
+      width:100%;
+      padding:12px 12px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      outline:none;
+      font-size:15px;
+      background:#fff;
+    }
+    input:focus{border-color:#93c5fd; box-shadow:0 0 0 4px rgba(37,99,235,.12)}
+    .btnrow{
+      margin-top:12px;
+      display:flex; gap:10px; flex-wrap:wrap;
+    }
+    button{
+      border:none;
+      border-radius:14px;
+      padding:12px 14px;
+      font-weight:900;
+      cursor:pointer;
+      font-size:15px;
+      transition:transform .06s ease, background .2s ease;
+    }
+    button:active{transform:scale(.98)}
+    .primary{
+      background:var(--primary);
+      color:#fff;
+    }
+    .primary:hover{background:var(--primary2)}
+    .ghost{
+      background:#eef2ff;
+      color:#1e3a8a;
+    }
+    .danger{
+      background:#fee2e2; color:#991b1b;
+    }
+    .mutedbtn{
+      background:#f1f5f9; color:#0f172a;
+    }
+
+    /* Tela prova */
+    .examHead{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px;
+      margin-top:8px;
+      padding-top:10px;
+      border-top:1px dashed var(--line);
+    }
+    .timer{
+      font-weight:900;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:#fff;
+      white-space:nowrap;
+    }
+    .progress{
+      font-weight:900;
+      color:#0f172a;
+    }
+    .qbox{
+      margin-top:12px;
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:14px;
+      background:#ffffff;
+    }
+    .qtitle{font-weight:900; font-size:16px; margin:0 0 10px}
+    .opts{display:grid; gap:10px}
+    .opt{
+      display:flex; gap:10px; align-items:flex-start;
+      padding:10px 10px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      cursor:pointer;
+      background:#fff;
+    }
+    .opt input{width:auto; margin-top:2px}
+    .hintWrap{margin-top:10px}
+    .hint{
+      margin-top:8px;
+      display:none;
+      border-left:4px solid #93c5fd;
+      background:#f8fafc;
+      padding:10px 12px;
+      border-radius:12px;
+      color:#0f172a;
+    }
+    .hint.show{display:block}
+    .footActions{
+      margin-top:12px;
+      display:flex; gap:10px; flex-wrap:wrap;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .leftActions{display:flex; gap:10px; flex-wrap:wrap}
+    .rightActions{display:flex; gap:10px; flex-wrap:wrap}
+
+    .small{
+      font-size:12px; color:var(--muted);
+      margin-top:10px;
+    }
+
+    /* Modal */
+    .backdrop{
+      position:fixed; inset:0;
+      background:rgba(15,23,42,.55);
+      display:none; align-items:center; justify-content:center;
+      padding:16px;
+    }
+    .backdrop.show{display:flex}
+    .modal{
+      width:min(520px, 100%);
+      background:#fff;
+      border-radius:18px;
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
+      padding:16px;
+    }
+    .modal h3{margin:0 0 6px; font-weight:900}
+    .modal p{margin:0 0 12px; color:var(--muted)}
+    .row{display:flex; gap:10px}
+    .row > *{flex:1}
+    .hr{height:1px; background:var(--line); margin:12px 0}
+    .ok{
+      color:#065f46; background:#dcfce7; border:1px solid #86efac;
+      padding:10px 12px; border-radius:14px; font-weight:800; display:none;
+    }
+    .err{
+      color:#7f1d1d; background:#fee2e2; border:1px solid #fecaca;
+      padding:10px 12px; border-radius:14px; font-weight:800; display:none;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <!-- Topbar -->
+    <div class="topbar">
+      <div class="brand">
+        <img src="aulas-informatica-alpha/imagens/Design sem nome (8).png" alt="Logo Instituto ALFA">
+        <div class="txt">
+          <div class="title">Instituto ALFA</div>
+          <div class="tag">formando vencedores</div>
+        </div>
+      </div>
+      <div class="status"><span class="dot"></span>Online</div>
+    </div>
+
+    <!-- Card inicial -->
+    <div class="card" id="startCard">
+      <div class="h1">Atividade — Arquivos, Pastas e Organização</div>
+      <p class="sub">
+        Você tem <b>60 minutos</b> para concluir. <b>1 tentativa</b> por dispositivo/navegador.
+      </p>
+
+      <div class="chips">
+        <div class="chip">⏱️ <span>Duração:</span> <strong>60 min</strong></div>
+        <div class="chip">🧠 <span>Formato:</span> <strong>10 questões</strong></div>
+        <div class="chip">✅ <span>Envio:</span> <strong>automático</strong></div>
+      </div>
+
+      <div class="warn" id="lockBox" style="display:none">
+        <div class="ico">🔒</div>
+        <div>
+          <b>Apenas uma tentativa!</b>
+          <p>Este dispositivo já enviou. Se foi erro, fale com o professor para liberar por senha.</p>
+          <div class="btnrow" style="margin-top:10px">
+            <button class="mutedbtn" id="btnOpenUnlock">Liberar com senha do professor</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div>
+          <label for="fullName">Digite seu nome completo</label>
+          <input id="fullName" placeholder="Ex: João Pedro Silva" autocomplete="name" />
+        </div>
+        <div>
+          <label for="email">Digite seu e-mail</label>
+          <input id="email" placeholder="Ex: aluno@gmail.com" autocomplete="email" inputmode="email" />
+        </div>
+      </div>
+
+      <div class="btnrow">
+        <button class="primary" id="btnStart">Começar →</button>
+      </div>
+
+      <div class="small">Ao começar, o cronômetro inicia e não pode ser pausado.</div>
+    </div>
+
+    <!-- Card prova -->
+    <div class="card" id="examCard" style="display:none">
+      <div class="examHead">
+        <div class="progress" id="progressTxt">Questão 1 de 10</div>
+        <div class="timer" id="timerTxt">⏳ 60:00</div>
+      </div>
+
+      <div class="qbox">
+        <div class="qtitle" id="qTitle"></div>
+        <div class="opts" id="qOpts"></div>
+
+        <div class="hintWrap">
+          <button class="ghost" id="btnHint">💡 Ver dica</button>
+          <div class="hint" id="hintBox"></div>
+        </div>
+
+        <div class="footActions">
+          <div class="leftActions">
+            <button class="mutedbtn" id="btnPrev">← Voltar</button>
+            <button class="mutedbtn" id="btnNext">Próxima →</button>
+          </div>
+          <div class="rightActions">
+            <button class="primary" id="btnSubmit" style="display:none">Enviar atividade ✅</button>
+          </div>
+        </div>
+
+        <div class="small" id="autosaveTxt">Suas respostas ficam salvas neste dispositivo enquanto você responde.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal desbloqueio -->
+  <div class="backdrop" id="unlockBackdrop" aria-hidden="true">
+    <div class="modal">
+      <h3>Liberar nova tentativa</h3>
+      <p>Somente o professor pode liberar. Digite a senha de liberação.</p>
+
+      <div class="row">
+        <div>
+          <label for="unlockEmail">E-mail do aluno</label>
+          <input id="unlockEmail" placeholder="o mesmo e-mail usado na atividade" />
+        </div>
+      </div>
+      <div style="margin-top:10px">
+        <label for="unlockPass">Senha do professor</label>
+        <input id="unlockPass" type="password" placeholder="senha de liberação" />
+      </div>
+
+      <div class="ok" id="unlockOk">Liberado! Agora o aluno pode iniciar novamente.</div>
+      <div class="err" id="unlockErr">Senha incorreta ou erro ao liberar.</div>
+
+      <div class="hr"></div>
+      <div class="btnrow" style="justify-content:flex-end">
+        <button class="mutedbtn" id="btnCloseUnlock">Fechar</button>
+        <button class="primary" id="btnDoUnlock">Liberar ✅</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+(() => {
+  // ====== CONFIG ======
+  const SCRIPT_URL = "COLE_AQUI_A_URL_DO_SEU_WEB_APP"; // ex: https://script.google.com/macros/s/AKfycb.../exec
+  const ACTIVITY_ID = "AULA2_ARQUIVOS_PASTAS_2026"; // troque quando criar outra atividade
+  const DURATION_SECONDS = 60 * 60; // 60 minutos
+  const LOCK_KEY = (email) => `lock:${ACTIVITY_ID}:${(email||"").toLowerCase().trim()}`;
+  const STATE_KEY = (email) => `state:${ACTIVITY_ID}:${(email||"").toLowerCase().trim()}`;
+  const DEVICE_ID_KEY = `deviceId:${ACTIVITY_ID}`;
+
+  // ====== QUESTÕES (baseadas no seu PDF) ======
+  // Referências de conteúdo: definições e exemplos em várias páginas do PDF (1 a 9).
+  const QUESTIONS = [
+    {
+      id: 1,
+      q: "1) O que é um ARQUIVO no computador?",
+      type: "mc",
+      options: [
+        "Um local para guardar arquivos e outras pastas",
+        "Qualquer coisa que contém informação (texto, foto, vídeo, programa)",
+        "Um programa que apaga arquivos automaticamente",
+        "Um tipo de pasta secreta do Windows"
+      ],
+      answer: 1,
+      hint: "Pense: arquivo é o conteúdo (texto, foto, vídeo...). Pasta é o lugar onde guarda."
+    },
+    {
+      id: 2,
+      q: "2) O que é uma PASTA?",
+      type: "mc",
+      options: [
+        "Um local para guardar arquivos ou outras pastas",
+        "Um tipo de vídeo",
+        "Um arquivo de texto editável",
+        "Um instalador do Windows"
+      ],
+      answer: 0,
+      hint: "No PDF: Pasta = ‘casa’; Arquivo = ‘móveis’ dentro da casa."
+    },
+    {
+      id: 3,
+      q: "3) Qual tipo de arquivo é um documento ‘pronto’, fechado, feito para ler (não para editar)?",
+      type: "mc",
+      options: ["DOCX", "PDF", "JPG", "EXE"],
+      answer: 1,
+      hint: "PDF é documento pronto/fechado. DOCX é editável."
+    },
+    {
+      id: 4,
+      q: "4) Qual tipo de arquivo é normalmente um programa/instalador que pode executar/modificar coisas no PC?",
+      type: "mc",
+      options: ["MP4", "JPG", "EXE", "PDF"],
+      answer: 2,
+      hint: "No PDF: EXE é programa/instalador (cuidado ao abrir)."
+    },
+    {
+      id: 5,
+      q: "5) Por que o Explorador de Arquivos é chamado de ‘coração’ do Windows na aula?",
+      type: "mc",
+      options: [
+        "Porque só serve para ver fotos",
+        "Porque é onde você cria, organiza, move, copia, apaga e encontra arquivos/pastas",
+        "Porque aumenta a velocidade da internet",
+        "Porque é onde o Windows guarda senhas"
+      ],
+      answer: 1,
+      hint: "Ele é o lugar onde você faz praticamente tudo com arquivos e pastas."
+    },
+    {
+      id: 6,
+      q: "6) Qual é a forma correta (profissional) de criar uma pasta?",
+      type: "mc",
+      options: [
+        "Abrir o Word e clicar em ‘Salvar como pasta’",
+        "Clicar em um espaço vazio > botão direito > Novo > Pasta > digitar nome > Enter",
+        "Apertar Ctrl+P para criar pasta",
+        "Arrastar um arquivo para fora da tela"
+      ],
+      answer: 1,
+      hint: "Tem um passo a passo claro no PDF (Explorador de Arquivos + botão direito + Novo + Pasta)."
+    },
+    {
+      id: 7,
+      q: "7) Ao renomear um arquivo, o que você NÃO deve apagar?",
+      type: "mc",
+      options: [
+        "O início do nome",
+        "A extensão (final) do arquivo, como .pdf, .docx, .jpg",
+        "Os espaços do nome",
+        "A data no nome"
+      ],
+      answer: 1,
+      hint: "A extensão é o tipo do arquivo. Se apagar, pode parar de abrir corretamente."
+    },
+    {
+      id: 8,
+      q: "8) Qual atalho faz COPIAR e qual faz MOVER (recortar) antes de colar?",
+      type: "mc",
+      options: [
+        "Copiar: Ctrl+X | Mover: Ctrl+C",
+        "Copiar: Ctrl+C | Mover: Ctrl+X",
+        "Copiar: Ctrl+V | Mover: Ctrl+V",
+        "Copiar: Ctrl+Z | Mover: Ctrl+Y"
+      ],
+      answer: 1,
+      hint: "Copiar = Ctrl+C. Mover/Recortar = Ctrl+X. Colar = Ctrl+V."
+    },
+    {
+      id: 9,
+      q: "9) Qual é a diferença entre Delete e Shift + Delete?",
+      type: "mc",
+      options: [
+        "Delete apaga para sempre, Shift+Delete manda para a Lixeira",
+        "Delete manda para a Lixeira (segunda chance), Shift+Delete apaga sem chance",
+        "Os dois fazem a mesma coisa",
+        "Shift+Delete renomeia o arquivo"
+      ],
+      answer: 1,
+      hint: "Na aula: Lixeira é ‘segunda chance’. Shift+Delete é sem volta."
+    },
+    {
+      id: 10,
+      q: "10) Na organização profissional (regra 5-5-5), qual item representa ‘se é importante, tem que ter cópia’?",
+      type: "mc",
+      options: ["Categoria", "Nome certo", "Backup", "Lugar certo"],
+      answer: 2,
+      hint: "Backup salva quando o PC/celular/pendrive dá problema."
+    }
+  ];
+
+  // ====== ELEMENTOS ======
+  const startCard = document.getElementById("startCard");
+  const examCard = document.getElementById("examCard");
+  const lockBox = document.getElementById("lockBox");
+  const fullNameEl = document.getElementById("fullName");
+  const emailEl = document.getElementById("email");
+  const btnStart = document.getElementById("btnStart");
+
+  const qTitle = document.getElementById("qTitle");
+  const qOpts = document.getElementById("qOpts");
+  const hintBox = document.getElementById("hintBox");
+  const btnHint = document.getElementById("btnHint");
+
+  const btnPrev = document.getElementById("btnPrev");
+  const btnNext = document.getElementById("btnNext");
+  const btnSubmit = document.getElementById("btnSubmit");
+  const progressTxt = document.getElementById("progressTxt");
+  const timerTxt = document.getElementById("timerTxt");
+
+  const unlockBackdrop = document.getElementById("unlockBackdrop");
+  const btnOpenUnlock = document.getElementById("btnOpenUnlock");
+  const btnCloseUnlock = document.getElementById("btnCloseUnlock");
+  const btnDoUnlock = document.getElementById("btnDoUnlock");
+  const unlockEmail = document.getElementById("unlockEmail");
+  const unlockPass = document.getElementById("unlockPass");
+  const unlockOk = document.getElementById("unlockOk");
+  const unlockErr = document.getElementById("unlockErr");
+
+  // ====== DEVICE ID ======
+  function getDeviceId(){
+    let id = localStorage.getItem(DEVICE_ID_KEY);
+    if(!id){
+      id = "dev_" + crypto.getRandomValues(new Uint32Array(4)).join("-");
+      localStorage.setItem(DEVICE_ID_KEY, id);
+    }
+    return id;
+  }
+
+  // ====== STATE ======
+  let state = null; // { name, email, startedAt, endsAt, idx, answers: {qid: choiceIndex}, hintShown: {qid:true}, sent:false }
+
+  function loadState(email){
+    try{
+      const raw = localStorage.getItem(STATE_KEY(email));
+      if(!raw) return null;
+      return JSON.parse(raw);
+    }catch(e){ return null; }
+  }
+  function saveState(){
+    if(!state?.email) return;
+    localStorage.setItem(STATE_KEY(state.email), JSON.stringify(state));
+  }
+
+  function isLocked(email){
+    return localStorage.getItem(LOCK_KEY(email)) === "1";
+  }
+  function setLocked(email){
+    localStorage.setItem(LOCK_KEY(email), "1");
+  }
+  function clearLock(email){
+    localStorage.removeItem(LOCK_KEY(email));
+    localStorage.removeItem(STATE_KEY(email));
+  }
+
+  // ====== UI HELPERS ======
+  function showStart(){
+    startCard.style.display = "";
+    examCard.style.display = "none";
+  }
+  function showExam(){
+    startCard.style.display = "none";
+    examCard.style.display = "";
+  }
+  function fmtTime(sec){
+    const m = String(Math.floor(sec/60)).padStart(2,"0");
+    const s = String(Math.floor(sec%60)).padStart(2,"0");
+    return `${m}:${s}`;
+  }
+
+  // ====== RENDER QUESTION ======
+  function render(){
+    const total = QUESTIONS.length;
+    const idx = state.idx;
+    const q = QUESTIONS[idx];
+
+    progressTxt.textContent = `Questão ${idx+1} de ${total}`;
+    qTitle.textContent = q.q;
+
+    // dica
+    hintBox.textContent = q.hint || "";
+    const hintShown = !!state.hintShown[q.id];
+    hintBox.classList.toggle("show", hintShown);
+    btnHint.textContent = hintShown ? "💡 Ocultar dica" : "💡 Ver dica";
+
+    // opções
+    qOpts.innerHTML = "";
+    q.options.forEach((text, i) => {
+      const row = document.createElement("label");
+      row.className = "opt";
+      row.innerHTML = `
+        <input type="radio" name="q_${q.id}" value="${i}">
+        <div>${text}</div>
+      `;
+      const input = row.querySelector("input");
+      input.checked = (state.answers[q.id] === i);
+      row.addEventListener("click", () => {
+        state.answers[q.id] = i;
+        saveState();
+      });
+      qOpts.appendChild(row);
+    });
+
+    // botões prev/next/submit
+    btnPrev.disabled = idx === 0;
+
+    const isLast = idx === total - 1;
+    // regra pedida: botão Próxima some na última pergunta e só reaparece se voltar
+    btnNext.style.display = isLast ? "none" : "";
+    btnSubmit.style.display = isLast ? "" : "none";
+  }
+
+  // ====== TIMER ======
+  let tickHandle = null;
+
+  function startTimer(){
+    clearInterval(tickHandle);
+    tickHandle = setInterval(() => {
+      const now = Date.now();
+      const left = Math.max(0, Math.floor((state.endsAt - now)/1000));
+      timerTxt.textContent = `⏳ ${fmtTime(left)}`;
+
+      if(left <= 0){
+        clearInterval(tickHandle);
+        // auto-enviar quando o tempo acabar
+        doSubmit(true);
+      }
+    }, 250);
+  }
+
+  // ====== VALIDATION ======
+  function cleanEmail(v){
+    return (v||"").trim().toLowerCase();
+  }
+  function mustFill(){
+    const name = fullNameEl.value.trim();
+    const email = cleanEmail(emailEl.value);
+    if(name.length < 6) { alert("Digite seu nome completo."); return null; }
+    if(!email.includes("@") || email.length < 6) { alert("Digite um e-mail válido."); return null; }
+    return {name, email};
+  }
+
+  // ====== NETWORK ======
+  async function post(payload){
+    if(!SCRIPT_URL || SCRIPT_URL.includes("COLE_AQUI")){
+      throw new Error("SCRIPT_URL não configurada no index.html");
+    }
+    const res = await fetch(SCRIPT_URL, {
+      method:"POST",
+      headers: {"Content-Type":"text/plain;charset=utf-8"},
+      body: JSON.stringify(payload)
+    });
+    return await res.json();
+  }
+
+  // ====== START ======
+  function checkLockUI(){
+    const email = cleanEmail(emailEl.value);
+    if(!email) { lockBox.style.display = "none"; return; }
+    lockBox.style.display = isLocked(email) ? "" : "none";
+  }
+  emailEl.addEventListener("input", checkLockUI);
+
+  btnStart.addEventListener("click", () => {
+    const data = mustFill();
+    if(!data) return;
+
+    if(isLocked(data.email)){
+      lockBox.style.display = "";
+      alert("Este dispositivo/navegador já enviou uma tentativa. Peça ao professor para liberar.");
+      return;
+    }
+
+    const existing = loadState(data.email);
+    const now = Date.now();
+
+    if(existing && !existing.sent && existing.endsAt > now){
+      // retomar
+      state = existing;
+    } else {
+      // novo início
+      state = {
+        name: data.name,
+        email: data.email,
+        startedAt: now,
+        endsAt: now + (DURATION_SECONDS * 1000),
+        idx: 0,
+        answers: {},
+        hintShown: {},
+        sent: false
+      };
+    }
+
+    saveState();
+    showExam();
+    render();
+    startTimer();
+  });
+
+  // ====== NAV ======
+  btnPrev.addEventListener("click", () => {
+    if(state.idx > 0){
+      state.idx--;
+      saveState();
+      render();
+    }
+  });
+  btnNext.addEventListener("click", () => {
+    if(state.idx < QUESTIONS.length - 1){
+      state.idx++;
+      saveState();
+      render();
+    }
+  });
+
+  btnHint.addEventListener("click", () => {
+    const q = QUESTIONS[state.idx];
+    state.hintShown[q.id] = !state.hintShown[q.id];
+    saveState();
+    render();
+  });
+
+  // ====== SUBMIT ======
+  async function doSubmit(isAuto=false){
+    if(state.sent) return;
+
+    // checagem mínima: respondeu tudo?
+    const unanswered = QUESTIONS.filter(q => state.answers[q.id] === undefined).length;
+    if(!isAuto && unanswered > 0){
+      if(!confirm(`Você ainda deixou ${unanswered} questão(ões) sem resposta. Quer enviar mesmo assim?`)) return;
+    }
+
+    // score
+    let correct = 0;
+    QUESTIONS.forEach(q => {
+      if(state.answers[q.id] === q.answer) correct++;
+    });
+
+    const payload = {
+      action: "submit",
+      activityId: ACTIVITY_ID,
+      name: state.name,
+      email: state.email,
+      deviceId: getDeviceId(),
+      startedAt: state.startedAt,
+      endedAt: Date.now(),
+      timeLimitSec: DURATION_SECONDS,
+      autoSubmit: !!isAuto,
+      score: correct,
+      total: QUESTIONS.length,
+      answers: QUESTIONS.map(q => ({
+        id: q.id,
+        question: q.q,
+        markedIndex: (state.answers[q.id] ?? null),
+        markedText: (state.answers[q.id] != null ? q.options[state.answers[q.id]] : null),
+        correctIndex: q.answer,
+        correctText: q.options[q.answer]
+      }))
+    };
+
+    try{
+      btnSubmit.disabled = true;
+      btnSubmit.textContent = "Enviando...";
+      const resp = await post(payload);
+
+      if(resp?.ok){
+        state.sent = true;
+        saveState();
+        setLocked(state.email);
+        alert(`Enviado! Nota: ${correct}/${QUESTIONS.length}.`);
+        location.reload(); // volta pro início já travado
+      }else{
+        throw new Error(resp?.error || "Falha ao enviar.");
+      }
+    }catch(err){
+      btnSubmit.disabled = false;
+      btnSubmit.textContent = "Enviar atividade ✅";
+      alert("Erro ao enviar. Verifique a URL do Web App e tente novamente.\n\nDetalhes: " + err.message);
+    }
+  }
+
+  btnSubmit.addEventListener("click", () => doSubmit(false));
+
+  // ====== UNLOCK MODAL ======
+  btnOpenUnlock?.addEventListener("click", () => {
+    unlockOk.style.display = "none";
+    unlockErr.style.display = "none";
+    unlockEmail.value = cleanEmail(emailEl.value);
+    unlockPass.value = "";
+    unlockBackdrop.classList.add("show");
+  });
+  btnCloseUnlock.addEventListener("click", () => unlockBackdrop.classList.remove("show"));
+
+  btnDoUnlock.addEventListener("click", async () => {
+    unlockOk.style.display = "none";
+    unlockErr.style.display = "none";
+
+    const email = cleanEmail(unlockEmail.value);
+    const pass = (unlockPass.value || "").trim();
+    if(!email || !email.includes("@")) { alert("Digite o e-mail do aluno."); return; }
+    if(pass.length < 3) { alert("Digite a senha do professor."); return; }
+
+    try{
+      const resp = await post({
+        action: "unlock",
+        activityId: ACTIVITY_ID,
+        email,
+        password: pass,
+        deviceId: getDeviceId()
+      });
+
+      if(resp?.ok){
+        clearLock(email);
+        unlockOk.style.display = "";
+        lockBox.style.display = "none";
+      }else{
+        unlockErr.style.display = "";
+      }
+    }catch(e){
+      unlockErr.style.display = "";
+    }
+  });
+
+  // ====== INIT ======
+  checkLockUI();
+  showStart();
+})();
+</script>
+</body>
+</html>
