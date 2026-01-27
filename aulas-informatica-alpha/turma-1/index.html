@@ -4,198 +4,106 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Atividade — Arquivos, Pastas e Organização</title>
-
-  <!-- ✅ FAVICON -->
-  <link rel="icon" type="image/png" href="aulas-informatica-alpha/imagens/Design%20sem%20nome%20(8).png">
+  <link rel="icon" type="image/png" href="https://mickaelfelipe01-beep.github.io/Atividades/aulas-informatica-alpha/imagens/Design%20sem%20nome%20(8).png">
 
   <style>
-    :root{
-      --bg:#f4f7fb;
-      --card:#ffffff;
-      --text:#0f172a;
-      --muted:#64748b;
-      --line:#e2e8f0;
-      --primary:#2563eb;
-      --primary2:#1d4ed8;
-      --warn-bg:#fff7ed;
-      --warn-line:#fdba74;
-      --ok:#16a34a;
-      --bad:#dc2626;
-      --shadow:0 12px 28px rgba(15,23,42,.10);
-      --radius:18px;
-      --grey:#f1f5f9;
-      --greyText:#475569;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue";
-      background:var(--bg);
-      color:var(--text);
-    }
-    .wrap{max-width:860px;margin:22px auto;padding:0 16px 40px}
-
-    .topbar{
-      background:var(--card);
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:14px 16px;
-      display:flex;align-items:center;justify-content:space-between;gap:12px;
-    }
-    .brand{display:flex;align-items:center;gap:12px;min-width:0}
-    .brand img{
-      width:44px;height:44px;border-radius:12px;
-      object-fit:cover;border:1px solid var(--line);background:#fff;
-    }
-    .brand .txt{min-width:0}
-    .brand .txt .title{
-      font-weight:800;font-size:18px;line-height:1.1;
-      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-    }
-    .brand .txt .tag{font-size:13px;color:var(--muted);margin-top:2px}
-
-    .status{
-      display:flex;align-items:center;gap:10px;
-      padding:10px 12px;border:1px solid var(--line);
-      border-radius:999px;background:#fff;font-weight:700;
-      user-select:none;
-    }
-    .dot{width:10px;height:10px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px rgba(22,163,74,.15)}
-
-    .card{
-      margin-top:16px;background:var(--card);
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:18px 18px 16px;
-    }
-    .h1{font-size:34px;letter-spacing:-.02em;margin:4px 0 10px;font-weight:900}
-    .sub{color:var(--muted);font-size:16px;margin:0 0 14px;line-height:1.35}
-
-    .chips{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 6px}
-    .chip{
-      display:inline-flex;align-items:center;gap:10px;
-      background:#f8fafc;border:1px solid var(--line);
-      padding:10px 12px;border-radius:999px;
-      font-weight:700;font-size:14px;
-    }
-    .chip span{color:var(--muted);font-weight:700}
-    .chip strong{font-weight:900}
-
-    .warn{
-      margin-top:12px;border:1px solid var(--warn-line);
-      background:var(--warn-bg);
-      border-radius:16px;padding:12px 12px;
-      display:flex;gap:10px;align-items:flex-start;
-    }
-    .warn .ico{
-      width:34px;height:34px;border-radius:12px;background:#ffedd5;
-      display:flex;align-items:center;justify-content:center;
-      border:1px solid #fed7aa;font-weight:900;
-    }
-    .warn b{display:block;margin-bottom:4px}
-    .warn p{margin:0;color:#7c2d12}
-
-    .grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:14px}
-    label{font-size:13px;font-weight:800;color:#0b1220;display:block;margin-bottom:6px}
-    input{
-      width:100%;padding:12px 12px;border:1px solid var(--line);
-      border-radius:14px;outline:none;font-size:15px;background:#fff;
-    }
-    input:focus{border-color:#93c5fd;box-shadow:0 0 0 4px rgba(37,99,235,.12)}
-
-    .btnrow{margin-top:12px;display:flex;gap:10px;flex-wrap:wrap}
-    button{
-      border:none;border-radius:14px;padding:12px 14px;font-weight:900;
-      cursor:pointer;font-size:15px;transition:transform .06s ease, background .2s ease;
-    }
-    button:active{transform:scale(.98)}
-    .primary{background:var(--primary);color:#fff}
-    .primary:hover{background:var(--primary2)}
-    .ghost{background:#eef2ff;color:#1e3a8a}
-    .mutedbtn{background:#f1f5f9;color:#0f172a}
-
-    .examHead{
-      display:flex;align-items:center;justify-content:space-between;
-      gap:10px;margin-top:8px;padding-top:10px;border-top:1px dashed var(--line);
-    }
-    .timer{
-      font-weight:900;padding:10px 12px;border-radius:999px;
-      border:1px solid var(--line);background:#fff;white-space:nowrap;
-    }
-    .progress{font-weight:900;color:#0f172a}
-
-    .qbox{
-      margin-top:12px;border:1px solid var(--line);
-      border-radius:16px;padding:14px;background:#ffffff;
-    }
-    .qtitle{font-weight:900;font-size:16px;margin:0 0 10px}
-
-    .opts{display:grid;gap:10px}
-    .opt{
-      display:flex;gap:10px;align-items:flex-start;
-      padding:10px 10px;border:1px solid var(--line);
-      border-radius:14px;cursor:pointer;background:#fff;
-      transition:filter .15s ease, background .15s ease, border-color .15s ease;
-    }
-    .opt input{width:auto;margin-top:2px}
-
-    /* ✅ cores de feedback */
-    .opt.correct{
-      background: rgba(22,163,74,.12);
-      border-color: rgba(22,163,74,.55);
-    }
-    .opt.wrong{
-      background: rgba(220,38,38,.12);
-      border-color: rgba(220,38,38,.55);
-    }
-    .opt.greyed{
-      background: var(--grey);
-      color: var(--greyText);
-      border-color: #e2e8f0;
-      cursor: not-allowed;
-      filter: grayscale(.2);
-    }
-    .opt.disabled{
-      cursor: not-allowed;
+    :root {
+      --primary: #2563eb;
+      --success: #16a34a;
+      --danger: #dc2626;
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --radius: 20px;
     }
 
-    .hintWrap{margin-top:10px}
-    .hint{
-      margin-top:8px;display:none;border-left:4px solid #93c5fd;
-      background:#f8fafc;padding:10px 12px;border-radius:12px;color:#0f172a;
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Roboto, sans-serif;
+      background: url('https://mickaelfelipe01-beep.github.io/Atividades/aulas-informatica-alpha/imagens/Design%20sem%20nome%20(6).png') no-repeat center center fixed;
+      background-size: cover;
+      min-height: 100vh;
+      display: flex; justify-content: center; align-items: flex-start;
     }
-    .hint.show{display:block}
 
-    .footActions{
-      margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;
-      justify-content:space-between;align-items:center;
-    }
-    .leftActions{display:flex;gap:10px;flex-wrap:wrap}
-    .rightActions{display:flex;gap:10px;flex-wrap:wrap}
-    .small{font-size:12px;color:var(--muted);margin-top:10px}
+    .wrap { width: 100%; max-width: 800px; padding: 20px; }
 
-    /* ✅ Toast (popup) */
-    .toast{
-      position: fixed;
-      left: 50%;
-      top: 16px;
-      transform: translateX(-50%);
-      min-width: min(680px, calc(100% - 32px));
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      box-shadow: var(--shadow);
-      padding: 12px 12px;
-      display:none;
-      z-index: 9999;
-      font-weight: 900;
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius);
+      padding: 30px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      border: 1px solid rgba(255,255,255,0.3);
+      margin-top: 20px;
     }
-    .toast.show{display:block}
-    .toast.ok{border-color: rgba(22,163,74,.45); background: rgba(22,163,74,.10)}
-    .toast.bad{border-color: rgba(220,38,38,.45); background: rgba(220,38,38,.10)}
-    .toast .submsg{display:block;font-weight:700;color:var(--muted);margin-top:4px}
+
+    .topbar {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 15px 25px;
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .brand { display: flex; align-items: center; gap: 15px; }
+    .brand img { width: 50px; height: 50px; border-radius: 12px; }
+    .brand .title { font-weight: 900; font-size: 20px; color: #1e293b; }
+
+    .h1 { font-size: 28px; font-weight: 900; color: #1e293b; margin-bottom: 10px; }
+    .sub { color: #64748b; margin-bottom: 25px; }
+
+    /* Opções */
+    .opts { display: grid; gap: 12px; margin-top: 20px; }
+    .opt {
+      padding: 15px; border: 2px solid #e2e8f0; border-radius: 15px;
+      cursor: pointer; transition: all 0.2s; background: #fff;
+      display: flex; align-items: center; gap: 12px; font-weight: 600;
+    }
+    .opt:hover { border-color: var(--primary); background: #eff6ff; }
+    .opt.correct { background: #dcfce7 !important; border-color: var(--success) !important; color: #166534; }
+    .opt.wrong { background: #fee2e2 !important; border-color: var(--danger) !important; color: #991b1b; }
+    .opt.disabled { cursor: not-allowed; opacity: 0.7; }
+
+    /* Toast Centralizado */
+    .overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(4px); display: none;
+      justify-content: center; align-items: center; z-index: 1000;
+    }
+    .toast-center {
+      background: white; padding: 30px; border-radius: 25px;
+      max-width: 400px; width: 90%; text-align: center;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+      animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    @keyframes pop { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+    .toast-center h2 { margin: 0 0 10px; font-size: 24px; }
+    .toast-center p { color: #475569; line-height: 1.5; margin-bottom: 20px; }
+
+    /* Botões */
+    button {
+      padding: 12px 24px; border-radius: 12px; border: none;
+      font-weight: 800; cursor: pointer; transition: 0.2s;
+    }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-next { background: #1e293b; color: white; width: 100%; margin-top: 15px; }
+
+    /* Tela de Resultado */
+    #resultScreen { text-align: center; display: none; }
+    .score-badge { font-size: 60px; font-weight: 900; margin: 20px 0; display: block; }
+    .rank-tag {
+      display: inline-block; padding: 8px 20px; border-radius: 999px;
+      font-weight: 900; text-transform: uppercase; letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+    .rank-iniciante { background: #f1f5f9; color: #475569; }
+    .rank-intermediario { background: #fef3c7; color: #92400e; }
+    .rank-avancado { background: #dcfce7; color: #166534; }
+
+    input#fullName {
+      width: 100%; padding: 15px; border-radius: 12px; border: 2px solid #e2e8f0;
+      font-size: 16px; margin-bottom: 15px; outline: none;
+    }
   </style>
 </head>
 
@@ -203,535 +111,175 @@
   <div class="wrap">
     <div class="topbar">
       <div class="brand">
-        <!-- ✅ LOGO -->
-        <img src="aulas-informatica-alpha/imagens/Design%20sem%20nome%20(8).png" alt="Logo Instituto ALFA">
-        <div class="txt">
-          <div class="title">Instituto ALFA</div>
-          <div class="tag">formando vencedores</div>
-        </div>
+        <img src="https://mickaelfelipe01-beep.github.io/Atividades/aulas-informatica-alpha/imagens/Design%20sem%20nome%20(8).png" alt="Logo">
+        <div class="title">Instituto ALFA</div>
       </div>
-      <div class="status"><span class="dot"></span>Online</div>
     </div>
 
     <div class="card" id="startCard">
-      <div class="h1">Atividade — Arquivos, Pastas e Organização</div>
-      <p class="sub">Você tem <b>60 minutos</b> para concluir. <b>1 tentativa</b> por dispositivo/navegador.</p>
-
-      <div class="chips">
-        <div class="chip">⏱️ <span>Duração:</span> <strong>60 min</strong></div>
-        <div class="chip">🧠 <span>Formato:</span> <strong>10 questões</strong></div>
-        <div class="chip">✅ <span>Envio:</span> <strong>automático</strong></div>
-      </div>
-
-      <!-- ✅ travamento por dispositivo -->
-      <div class="warn" id="lockBox" style="display:none">
-        <div class="ico">🔒</div>
-        <div>
-          <b>Apenas uma tentativa!</b>
-          <p>Este dispositivo já enviou. Se foi erro, fale com o professor para liberar por senha.</p>
-          <div class="btnrow" style="margin-top:10px">
-            <button class="mutedbtn" id="btnOpenUnlock">Liberar com senha do professor</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="grid">
-        <div>
-          <label for="fullName">Digite seu nome completo</label>
-          <input id="fullName" placeholder="Ex: João Pedro Silva" autocomplete="name" />
-        </div>
-      </div>
-
-      <div class="btnrow">
-        <button class="primary" id="btnStart">Começar →</button>
-      </div>
-
-      <div class="small">Ao começar, o cronômetro inicia e não pode ser pausado.</div>
+      <div class="h1">Atividade de Organização</div>
+      <p class="sub">Teste seus conhecimentos sobre Arquivos e Pastas.</p>
+      <input type="text" id="fullName" placeholder="Digite seu nome completo">
+      <button class="btn-primary" style="width: 100%" onclick="startQuiz()">Começar Atividade →</button>
     </div>
 
-    <div class="card" id="examCard" style="display:none">
-      <div class="examHead">
-        <div class="progress" id="progressTxt">Questão 1 de 10</div>
-        <div class="timer" id="timerTxt">⏳ 60:00</div>
-      </div>
+    <div class="card" id="quizCard" style="display:none">
+      <div id="timer" style="float:right; font-weight:900">⏳ 60:00</div>
+      <div id="progress" style="font-weight:700; color:var(--primary)">Questão 1 de 10</div>
+      <h2 id="qTitle" style="margin-top:20px">Carregando...</h2>
+      <div class="opts" id="qOpts"></div>
+      <button id="btnNext" class="btn-next" style="display:none" onclick="nextQuestion()">Próxima Questão</button>
+    </div>
 
-      <div class="qbox">
-        <div class="qtitle" id="qTitle"></div>
-        <div class="opts" id="qOpts"></div>
-
-        <div class="hintWrap">
-          <button class="ghost" id="btnHint">💡 Ver dica</button>
-          <div class="hint" id="hintBox"></div>
-        </div>
-
-        <div class="footActions">
-          <div class="leftActions">
-            <button class="mutedbtn" id="btnPrev">← Voltar</button>
-            <button class="mutedbtn" id="btnNext">Próxima →</button>
-          </div>
-          <div class="rightActions">
-            <button class="primary" id="btnSubmit" style="display:none">Enviar atividade ✅</button>
-          </div>
-        </div>
-
-        <div class="small">Depois que você responder uma questão, não dá pra mudar. (Treino sério.)</div>
-      </div>
+    <div class="card" id="resultScreen">
+      <div id="resultEmoji" style="font-size: 80px;">🏆</div>
+      <div class="h1" id="resultTitle">Excelente trabalho!</div>
+      <p id="resultMsg">Você concluiu a atividade com sucesso.</p>
+      <span id="rankTag" class="rank-tag">Iniciante</span>
+      <span class="score-badge" id="finalScore">0/10</span>
+      <p style="color: #64748b">Sua resposta foi enviada para o professor.</p>
     </div>
   </div>
 
-  <!-- ✅ Toast -->
-  <div class="toast" id="toast"></div>
-
-  <!-- Modal desbloqueio -->
-  <div class="backdrop" id="unlockBackdrop" aria-hidden="true" style="position:fixed; inset:0; background:rgba(15,23,42,.55); display:none; align-items:center; justify-content:center; padding:16px;">
-    <div class="modal" style="width:min(520px, 100%); background:#fff; border-radius:18px; border:1px solid var(--line); box-shadow:var(--shadow); padding:16px;">
-      <h3 style="margin:0 0 6px; font-weight:900">Liberar nova tentativa</h3>
-      <p style="margin:0 0 12px; color:var(--muted)">Somente o professor pode liberar. Digite a senha de liberação.</p>
-
-      <div style="margin-top:10px">
-        <label for="unlockPass">Senha do professor</label>
-        <input id="unlockPass" type="password" placeholder="senha de liberação" />
-      </div>
-
-      <div id="unlockOk" style="display:none; margin-top:10px; color:#065f46; background:#dcfce7; border:1px solid #86efac; padding:10px 12px; border-radius:14px; font-weight:800;">
-        Liberado! Agora este dispositivo pode iniciar novamente.
-      </div>
-      <div id="unlockErr" style="display:none; margin-top:10px; color:#7f1d1d; background:#fee2e2; border:1px solid #fecaca; padding:10px 12px; border-radius:14px; font-weight:800;">
-        Senha incorreta ou erro ao liberar.
-      </div>
-
-      <div style="height:1px; background:var(--line); margin:12px 0"></div>
-      <div class="btnrow" style="justify-content:flex-end">
-        <button class="mutedbtn" id="btnCloseUnlock">Fechar</button>
-        <button class="primary" id="btnDoUnlock">Liberar ✅</button>
-      </div>
+  <div class="overlay" id="feedbackOverlay">
+    <div class="toast-center">
+      <h2 id="feedbackTitle">Correto!</h2>
+      <p id="feedbackText">Explicação aqui.</p>
+      <button class="btn-primary" onclick="closeFeedback()">Entendi</button>
     </div>
   </div>
 
-<script>
-(() => {
-  // ====== CONFIG ======
-  const SCRIPT_URL = "COLE_AQUI_A_URL_DO_SEU_WEB_APP"; // Apps Script Web App
-  const ACTIVITY_ID = "AULA2_ARQUIVOS_PASTAS_2026";
-  const DURATION_SECONDS = 60 * 60;
+  <script>
+    const SCRIPT_URL = "SUA_URL_DO_WEB_APP_AQUI"; // <--- COLOQUE A URL AQUI
+    const QUESTIONS = [
+      { q: "O que é um ARQUIVO no computador?", opts: ["Local para guardar pastas", "Qualquer coisa que contém informação (foto, texto, vídeo)", "Programa que apaga tudo", "Pasta secreta"], ans: 1, exp: "Arquivos são as unidades básicas de informação. Pense neles como o 'documento' e a pasta como a 'gaveta'." },
+      { q: "O que é uma PASTA?", opts: ["Local para guardar arquivos e outras pastas", "Um tipo de vídeo", "Arquivo de texto", "Instalador do Windows"], ans: 0, exp: "Pastas servem exclusivamente para organizar e agrupar seus arquivos." },
+      { q: "Qual extensão é de um documento pronto para leitura (não editável)?", opts: ["DOCX", "PDF", "JPG", "EXE"], ans: 1, exp: "O PDF é o formato universal para documentos que não devem ser alterados facilmente." },
+      { q: "Qual extensão representa um programa ou instalador?", opts: ["MP4", "JPG", "EXE", "PDF"], ans: 2, exp: "EXE vem de 'Executable'. É o formato que o Windows usa para rodar programas." },
+      { q: "Qual atalho é usado para COPIAR um arquivo?", opts: ["Ctrl+X", "Ctrl+V", "Ctrl+C", "Ctrl+Z"], ans: 2, exp: "Ctrl+C duplica o arquivo, mantendo o original no lugar." },
+      { q: "Qual atalho é usado para MOVER (recortar) um arquivo?", opts: ["Ctrl+C", "Ctrl+X", "Ctrl+V", "Ctrl+A"], ans: 1, exp: "Ctrl+X 'tira' o arquivo do lugar atual para colá-lo em outro." },
+      { q: "O que acontece ao usar Shift + Delete?", opts: ["Vai para a lixeira", "Renomeia o arquivo", "Apaga permanentemente", "Copia o arquivo"], ans: 2, exp: "Cuidado! Shift+Delete pula a lixeira e apaga o arquivo direto do disco." },
+      { q: "O que você NÃO deve apagar ao renomear um arquivo?", opts: ["O início do nome", "A extensão (.jpg, .pdf)", "Os espaços", "Os números"], ans: 1, exp: "Se você remover a extensão, o computador não saberá com qual programa abrir o arquivo." },
+      { q: "Onde você organiza arquivos no Windows?", opts: ["Painel de Controle", "Google Chrome", "Explorador de Arquivos", "Bloco de Notas"], ans: 2, exp: "O Explorador de Arquivos é a ferramenta principal de gestão de dados do sistema." },
+      { q: "Na regra 5-5-5, o que significa Backup?", opts: ["Deletar tudo", "Cópia de segurança", "Mudar o nome", "Criar 5 pastas"], ans: 1, exp: "Backup é ter uma cópia em local seguro para não perder seus dados importantes." }
+    ];
 
-  // ✅ agora o lock é 100% por dispositivo/navegador
-  const DEVICE_LOCK_KEY = `lock:${ACTIVITY_ID}:device`;
-  const STATE_KEY = `state:${ACTIVITY_ID}:device`;
-  const DEVICE_ID_KEY = `deviceId:${ACTIVITY_ID}`;
+    let currentIdx = 0;
+    let score = 0;
+    let userAnswers = [];
+    let userName = "";
+    let startTime = Date.now();
 
-  // ====== QUESTÕES ======
-  const QUESTIONS = [
-    { id: 1, q: "1) O que é um ARQUIVO no computador?", options: [
-      "Um local para guardar arquivos e outras pastas",
-      "Qualquer coisa que contém informação (texto, foto, vídeo, programa)",
-      "Um programa que apaga arquivos automaticamente",
-      "Um tipo de pasta secreta do Windows"
-    ], answer: 1, hint: "Arquivo é o conteúdo. Pasta é onde guarda." },
-
-    { id: 2, q: "2) O que é uma PASTA?", options: [
-      "Um local para guardar arquivos ou outras pastas",
-      "Um tipo de vídeo",
-      "Um arquivo de texto editável",
-      "Um instalador do Windows"
-    ], answer: 0, hint: "Pasta = ‘casa’. Arquivo = o que está dentro." },
-
-    { id: 3, q: "3) Qual tipo de arquivo é um documento ‘pronto’, fechado, feito para ler (não para editar)?", options: [
-      "DOCX","PDF","JPG","EXE"
-    ], answer: 1, hint: "PDF é documento pronto/fechado." },
-
-    { id: 4, q: "4) Qual tipo de arquivo é normalmente um programa/instalador que pode executar/modificar coisas no PC?", options: [
-      "MP4","JPG","EXE","PDF"
-    ], answer: 2, hint: "EXE é programa/instalador." },
-
-    { id: 5, q: "5) Por que o Explorador de Arquivos é chamado de ‘coração’ do Windows na aula?", options: [
-      "Porque só serve para ver fotos",
-      "Porque é onde você cria, organiza, move, copia, apaga e encontra arquivos/pastas",
-      "Porque aumenta a velocidade da internet",
-      "Porque é onde o Windows guarda senhas"
-    ], answer: 1, hint: "Você faz praticamente tudo nele." },
-
-    { id: 6, q: "6) Qual é a forma correta (profissional) de criar uma pasta?", options: [
-      "Abrir o Word e clicar em ‘Salvar como pasta’",
-      "Clicar em um espaço vazio > botão direito > Novo > Pasta > digitar nome > Enter",
-      "Apertar Ctrl+P para criar pasta",
-      "Arrastar um arquivo para fora da tela"
-    ], answer: 1, hint: "Botão direito > Novo > Pasta." },
-
-    { id: 7, q: "7) Ao renomear um arquivo, o que você NÃO deve apagar?", options: [
-      "O início do nome",
-      "A extensão (final) do arquivo, como .pdf, .docx, .jpg",
-      "Os espaços do nome",
-      "A data no nome"
-    ], answer: 1, hint: "A extensão define o tipo do arquivo." },
-
-    { id: 8, q: "8) Qual atalho faz COPIAR e qual faz MOVER (recortar) antes de colar?", options: [
-      "Copiar: Ctrl+X | Mover: Ctrl+C",
-      "Copiar: Ctrl+C | Mover: Ctrl+X",
-      "Copiar: Ctrl+V | Mover: Ctrl+V",
-      "Copiar: Ctrl+Z | Mover: Ctrl+Y"
-    ], answer: 1, hint: "Copiar = Ctrl+C. Recortar = Ctrl+X." },
-
-    { id: 9, q: "9) Qual é a diferença entre Delete e Shift + Delete?", options: [
-      "Delete apaga para sempre, Shift+Delete manda para a Lixeira",
-      "Delete manda para a Lixeira, Shift+Delete apaga sem chance",
-      "Os dois fazem a mesma coisa",
-      "Shift+Delete renomeia o arquivo"
-    ], answer: 1, hint: "Shift+Delete é sem volta." },
-
-    { id: 10, q: "10) Na organização profissional (regra 5-5-5), qual item representa ‘se é importante, tem que ter cópia’?", options: [
-      "Categoria","Nome certo","Backup","Lugar certo"
-    ], answer: 2, hint: "Backup = cópia de segurança." },
-  ];
-
-  // ====== ELEMENTOS ======
-  const startCard = document.getElementById("startCard");
-  const examCard = document.getElementById("examCard");
-  const lockBox = document.getElementById("lockBox");
-
-  const fullNameEl = document.getElementById("fullName");
-  const btnStart = document.getElementById("btnStart");
-
-  const qTitle = document.getElementById("qTitle");
-  const qOpts = document.getElementById("qOpts");
-  const hintBox = document.getElementById("hintBox");
-  const btnHint = document.getElementById("btnHint");
-
-  const btnPrev = document.getElementById("btnPrev");
-  const btnNext = document.getElementById("btnNext");
-  const btnSubmit = document.getElementById("btnSubmit");
-  const progressTxt = document.getElementById("progressTxt");
-  const timerTxt = document.getElementById("timerTxt");
-
-  const toast = document.getElementById("toast");
-
-  const unlockBackdrop = document.getElementById("unlockBackdrop");
-  const btnOpenUnlock = document.getElementById("btnOpenUnlock");
-  const btnCloseUnlock = document.getElementById("btnCloseUnlock");
-  const btnDoUnlock = document.getElementById("btnDoUnlock");
-  const unlockPass = document.getElementById("unlockPass");
-  const unlockOk = document.getElementById("unlockOk");
-  const unlockErr = document.getElementById("unlockErr");
-
-  // ====== DEVICE ID ======
-  function getDeviceId(){
-    let id = localStorage.getItem(DEVICE_ID_KEY);
-    if(!id){
-      id = "dev_" + crypto.getRandomValues(new Uint32Array(4)).join("-");
-      localStorage.setItem(DEVICE_ID_KEY, id);
+    function startQuiz() {
+      userName = document.getElementById('fullName').value.trim();
+      if(userName.length < 5) { alert("Por favor, digite seu nome completo."); return; }
+      document.getElementById('startCard').style.display = 'none';
+      document.getElementById('quizCard').style.display = 'block';
+      renderQuestion();
     }
-    return id;
-  }
 
-  // ====== LOCK ======
-  function isLocked(){
-    return localStorage.getItem(DEVICE_LOCK_KEY) === "1";
-  }
-  function setLocked(){
-    localStorage.setItem(DEVICE_LOCK_KEY, "1");
-  }
-  function clearLock(){
-    localStorage.removeItem(DEVICE_LOCK_KEY);
-    localStorage.removeItem(STATE_KEY);
-  }
+    function renderQuestion() {
+      const q = QUESTIONS[currentIdx];
+      document.getElementById('progress').innerText = `Questão ${currentIdx + 1} de ${QUESTIONS.length}`;
+      document.getElementById('qTitle').innerText = q.q;
+      const optsDiv = document.getElementById('qOpts');
+      optsDiv.innerHTML = '';
+      
+      q.opts.forEach((opt, i) => {
+        const btn = document.createElement('div');
+        btn.className = 'opt';
+        btn.innerText = opt;
+        btn.onclick = () => checkAnswer(i);
+        optsDiv.appendChild(btn);
+      });
+      document.getElementById('btnNext').style.display = 'none';
+    }
 
-  // ====== STATE ======
-  let state = null;
-  // state = { name, startedAt, endsAt, idx, answers:{qid:choice}, locked:{qid:true}, hintShown:{qid:true}, sent:false }
+    function checkAnswer(i) {
+      const q = QUESTIONS[currentIdx];
+      const opts = document.querySelectorAll('.opt');
+      if (opts[0].classList.contains('disabled')) return;
 
-  function loadState(){
-    try{
-      const raw = localStorage.getItem(STATE_KEY);
-      if(!raw) return null;
-      return JSON.parse(raw);
-    }catch(e){ return null; }
-  }
-  function saveState(){
-    localStorage.setItem(STATE_KEY, JSON.stringify(state));
-  }
+      const isCorrect = (i === q.ans);
+      if(isCorrect) score++;
 
-  // ====== UI ======
-  function showStart(){ startCard.style.display=""; examCard.style.display="none"; }
-  function showExam(){ startCard.style.display="none"; examCard.style.display=""; }
-  function fmtTime(sec){
-    const m = String(Math.floor(sec/60)).padStart(2,"0");
-    const s = String(Math.floor(sec%60)).padStart(2,"0");
-    return `${m}:${s}`;
-  }
+      userAnswers.push({ q: q.q, selected: q.opts[i], correct: q.opts[q.ans], status: isCorrect });
 
-  // ✅ Toast
-  let toastTimer = null;
-  function showToast(type, title, subtitle=""){
-    clearTimeout(toastTimer);
-    toast.className = "toast show " + (type === "ok" ? "ok" : "bad");
-    toast.innerHTML = `${title}${subtitle ? `<span class="submsg">${subtitle}</span>` : ""}`;
-    toastTimer = setTimeout(() => toast.classList.remove("show"), 2600);
-  }
-
-  // ====== RENDER ======
-  function render(){
-    const total = QUESTIONS.length;
-    const idx = state.idx;
-    const q = QUESTIONS[idx];
-
-    progressTxt.textContent = `Questão ${idx+1} de ${total}`;
-    qTitle.textContent = q.q;
-
-    hintBox.textContent = q.hint || "";
-    const hintShown = !!state.hintShown[q.id];
-    hintBox.classList.toggle("show", hintShown);
-    btnHint.textContent = hintShown ? "💡 Ocultar dica" : "💡 Ver dica";
-
-    qOpts.innerHTML = "";
-
-    const alreadyLocked = !!state.locked[q.id];
-    const marked = state.answers[q.id];
-
-    q.options.forEach((text, i) => {
-      const row = document.createElement("label");
-      row.className = "opt";
-      row.innerHTML = `
-        <input type="radio" name="q_${q.id}" value="${i}">
-        <div>${text}</div>
-      `;
-      const input = row.querySelector("input");
-
-      // seta marcado
-      input.checked = (marked === i);
-
-      if(alreadyLocked){
-        input.disabled = true;
-        row.classList.add("disabled");
-
-        // feedback visual travado:
-        if(marked === q.answer && i === marked) row.classList.add("correct");
-        else if(marked !== q.answer && i === marked) row.classList.add("wrong");
-        else row.classList.add("greyed");
-      }
-
-      row.addEventListener("click", (ev) => {
-        if(state.locked[q.id]){ ev.preventDefault(); return; }
-
-        // marca e trava
-        state.answers[q.id] = i;
-        state.locked[q.id] = true;
-        saveState();
-
-        // feedback
-        if(i === q.answer){
-          showToast("ok", "✅ Resposta correta!", "Muito bem.");
-        }else{
-          showToast("bad", "❌ Resposta errada!", `A correta era: "${q.options[q.answer]}"`);
-        }
-
-        render();
+      opts.forEach((opt, idx) => {
+        opt.classList.add('disabled');
+        if(idx === q.ans) opt.classList.add('correct');
+        if(idx === i && !isCorrect) opt.classList.add('wrong');
       });
 
-      qOpts.appendChild(row);
-    });
+      // Mostrar Feedback Centralizado
+      document.getElementById('feedbackOverlay').style.display = 'flex';
+      document.getElementById('feedbackTitle').innerText = isCorrect ? "✅ Muito bem!" : "❌ Quase lá...";
+      document.getElementById('feedbackTitle').style.color = isCorrect ? "var(--success)" : "var(--danger)";
+      document.getElementById('feedbackText').innerHTML = `<b>A resposta correta era: ${q.opts[q.ans]}</b><br><br>${q.exp}`;
+      
+      document.getElementById('btnNext').style.display = 'block';
+    }
 
-    btnPrev.disabled = idx === 0;
-
-    const isLast = idx === total - 1;
-    btnNext.style.display = isLast ? "none" : "";
-    btnSubmit.style.display = isLast ? "" : "none";
-  }
-
-  // ====== TIMER ======
-  let tickHandle = null;
-  function startTimer(){
-    clearInterval(tickHandle);
-    tickHandle = setInterval(() => {
-      const left = Math.max(0, Math.floor((state.endsAt - Date.now())/1000));
-      timerTxt.textContent = `⏳ ${fmtTime(left)}`;
-      if(left <= 0){
-        clearInterval(tickHandle);
-        doSubmit(true);
+    function closeFeedback() {
+      document.getElementById('feedbackOverlay').style.display = 'none';
+      if(currentIdx === QUESTIONS.length - 1) {
+        finishQuiz();
       }
-    }, 250);
-  }
-
-  // ====== VALIDATION ======
-  function mustFill(){
-    const name = fullNameEl.value.trim();
-    if(name.length < 6){ alert("Digite seu nome completo."); return null; }
-    return {name};
-  }
-
-  // ====== NETWORK ======
-  async function post(payload){
-    if(!SCRIPT_URL || SCRIPT_URL.includes("COLE_AQUI")){
-      throw new Error("SCRIPT_URL não configurada no index.html");
-    }
-    const res = await fetch(SCRIPT_URL, {
-      method:"POST",
-      headers: {"Content-Type":"text/plain;charset=utf-8"},
-      body: JSON.stringify(payload)
-    });
-    return await res.json();
-  }
-
-  // ====== START ======
-  btnStart.addEventListener("click", () => {
-    if(isLocked()){
-      lockBox.style.display = "";
-      alert("Este dispositivo/navegador já enviou uma tentativa. Peça ao professor para liberar.");
-      return;
     }
 
-    const data = mustFill();
-    if(!data) return;
+    function nextQuestion() {
+      currentIdx++;
+      renderQuestion();
+    }
 
-    const existing = loadState();
-    const now = Date.now();
+    async function finishQuiz() {
+      document.getElementById('quizCard').style.display = 'none';
+      document.getElementById('resultScreen').style.display = 'block';
+      
+      const percent = (score / QUESTIONS.length) * 10;
+      let rank = "";
+      let title = "";
+      let msg = "";
+      let emoji = "";
 
-    if(existing && !existing.sent && existing.endsAt > now){
-      state = existing;
-      // atualiza nome caso o aluno corrigiu antes de começar
-      state.name = data.name;
-    }else{
-      state = {
-        name: data.name,
-        startedAt: now,
-        endsAt: now + (DURATION_SECONDS * 1000),
-        idx: 0,
-        answers: {},
-        locked: {},      // ✅ trava por questão
-        hintShown: {},
-        sent: false
+      if(score >= 9) {
+        rank = "Avançado"; title = "Incrível!"; msg = "Você domina o assunto perfeitamente!"; emoji = "🏆";
+      } else if(score >= 6) {
+        rank = "Intermediário"; title = "Muito bom!"; msg = "Você tem uma ótima base, continue assim!"; emoji = "🥈";
+      } else {
+        rank = "Iniciante"; title = "Não desanime!"; msg = "Estude mais um pouco e tente a próxima vez!"; emoji = "📚";
+      }
+
+      document.getElementById('finalScore').innerText = `${score}/${QUESTIONS.length}`;
+      document.getElementById('rankTag').innerText = rank;
+      document.getElementById('rankTag').className = `rank-tag rank-${rank.toLowerCase()}`;
+      document.getElementById('resultTitle').innerText = title;
+      document.getElementById('resultMsg').innerText = msg;
+      document.getElementById('resultEmoji').innerText = emoji;
+
+      // Enviar para o Google Sheets
+      const payload = {
+        action: "submit",
+        activityId: "ARQUIVOS_2026",
+        name: userName,
+        deviceId: "dev_" + Math.random().toString(36).substr(2, 9),
+        startedAt: startTime,
+        endedAt: Date.now(),
+        timeLimitSec: 3600,
+        autoSubmit: false,
+        score: score,
+        total: QUESTIONS.length,
+        answers: userAnswers
       };
+
+      try {
+        await fetch(SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          body: JSON.stringify(payload)
+        });
+      } catch (e) { console.log("Erro ao salvar"); }
     }
-
-    saveState();
-    showExam();
-    render();
-    startTimer();
-  });
-
-  // ====== NAV ======
-  btnPrev.addEventListener("click", () => {
-    if(state.idx > 0){
-      state.idx--;
-      saveState();
-      render();
-    }
-  });
-  btnNext.addEventListener("click", () => {
-    if(state.idx < QUESTIONS.length - 1){
-      state.idx++;
-      saveState();
-      render();
-    }
-  });
-
-  btnHint.addEventListener("click", () => {
-    const q = QUESTIONS[state.idx];
-    state.hintShown[q.id] = !state.hintShown[q.id];
-    saveState();
-    render();
-  });
-
-  // ====== SUBMIT ======
-  async function doSubmit(isAuto=false){
-    if(state.sent) return;
-
-    const unanswered = QUESTIONS.filter(q => state.answers[q.id] === undefined).length;
-    if(!isAuto && unanswered > 0){
-      if(!confirm(`Você ainda deixou ${unanswered} questão(ões) sem resposta. Quer enviar mesmo assim?`)) return;
-    }
-
-    let correct = 0;
-    QUESTIONS.forEach(q => { if(state.answers[q.id] === q.answer) correct++; });
-
-    const payload = {
-      action: "submit",
-      activityId: ACTIVITY_ID,
-      name: state.name,
-      deviceId: getDeviceId(),
-      startedAt: state.startedAt,
-      endedAt: Date.now(),
-      timeLimitSec: DURATION_SECONDS,
-      autoSubmit: !!isAuto,
-      score: correct,
-      total: QUESTIONS.length,
-      answers: QUESTIONS.map(q => ({
-        id: q.id,
-        question: q.q,
-        markedIndex: (state.answers[q.id] ?? null),
-        markedText: (state.answers[q.id] != null ? q.options[state.answers[q.id]] : null),
-        correctIndex: q.answer,
-        correctText: q.options[q.answer]
-      }))
-    };
-
-    try{
-      btnSubmit.disabled = true;
-      btnSubmit.textContent = "Enviando...";
-      const resp = await post(payload);
-
-      if(resp?.ok){
-        state.sent = true;
-        saveState();
-        setLocked();
-        alert(`Enviado! Nota: ${correct}/${QUESTIONS.length}.`);
-        location.reload();
-      }else{
-        throw new Error(resp?.error || "Falha ao enviar.");
-      }
-    }catch(err){
-      btnSubmit.disabled = false;
-      btnSubmit.textContent = "Enviar atividade ✅";
-      alert("Erro ao enviar. Verifique a URL do Web App.\n\nDetalhes: " + err.message);
-    }
-  }
-
-  btnSubmit.addEventListener("click", () => doSubmit(false));
-
-  // ====== UNLOCK ======
-  function openUnlock(){
-    unlockOk.style.display = "none";
-    unlockErr.style.display = "none";
-    unlockPass.value = "";
-    unlockBackdrop.style.display = "flex";
-  }
-  function closeUnlock(){
-    unlockBackdrop.style.display = "none";
-  }
-
-  btnOpenUnlock.addEventListener("click", openUnlock);
-  btnCloseUnlock.addEventListener("click", closeUnlock);
-
-  btnDoUnlock.addEventListener("click", async () => {
-    unlockOk.style.display = "none";
-    unlockErr.style.display = "none";
-
-    const pass = (unlockPass.value || "").trim();
-    if(pass.length < 3){ alert("Digite a senha do professor."); return; }
-
-    try{
-      const resp = await post({
-        action: "unlock",
-        activityId: ACTIVITY_ID,
-        password: pass,
-        deviceId: getDeviceId()
-      });
-
-      if(resp?.ok){
-        clearLock();
-        unlockOk.style.display = "";
-        lockBox.style.display = "none";
-      }else{
-        unlockErr.style.display = "";
-      }
-    }catch(e){
-      unlockErr.style.display = "";
-    }
-  });
-
-  // INIT
-  if(isLocked()) lockBox.style.display = "";
-  showStart();
-})();
-</script>
+  </script>
 </body>
 </html>
