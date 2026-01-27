@@ -4,143 +4,389 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Atividade — Arquivos, Pastas e Organização</title>
+
+  <!-- Favicon -->
   <link rel="icon" type="image/png" href="https://mickaelfelipe01-beep.github.io/Atividades/aulas-informatica-alpha/imagens/Design%20sem%20nome%20(8).png">
 
   <style>
-    :root {
-      --primary: #2563eb;
-      --success: #16a34a;
-      --danger: #dc2626;
-      --card-bg: rgba(255, 255, 255, 0.95);
-      --radius: 20px;
+    :root{
+      --primary:#2563eb;
+      --success:#16a34a;
+      --danger:#dc2626;
+      --text:#0f172a;
+      --muted:#64748b;
+      --card-bg:rgba(255,255,255,.94);
+      --radius:20px;
     }
 
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Roboto, sans-serif;
-      background: url('https://mickaelfelipe01-beep.github.io/Atividades/aulas-informatica-alpha/imagens/Design%20sem%20nome%20(6).png') no-repeat center center fixed;
-      background-size: cover;
-      min-height: 100vh;
-      display: flex; justify-content: center; align-items: flex-start;
+    *{ box-sizing:border-box; }
+
+    body{
+      margin:0;
+      font-family:'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+      background: radial-gradient(1200px 600px at 20% 10%, #e0f2fe 0%, transparent 60%),
+                  radial-gradient(900px 600px at 90% 30%, #dbeafe 0%, transparent 60%),
+                  linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+      overflow-x:hidden;
     }
 
-    .wrap { width: 100%; max-width: 800px; padding: 20px; }
+    /* Fundo com ícones caindo (folhas) */
+    .fall-layer{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      overflow:hidden;
+      z-index:0;
+    }
+    .leaf{
+      position:absolute;
+      top:-60px;
+      width:22px;
+      height:22px;
+      background-size:contain;
+      background-repeat:no-repeat;
+      opacity:.75;
+      filter: drop-shadow(0 6px 10px rgba(0,0,0,.12));
+      animation-name: fall, sway;
+      animation-timing-function: linear, ease-in-out;
+      animation-iteration-count: infinite, infinite;
+      will-change: transform;
+    }
+    @keyframes fall{
+      0%   { transform: translateY(-80px) rotate(0deg); }
+      100% { transform: translateY(calc(100vh + 120px)) rotate(360deg); }
+    }
+    @keyframes sway{
+      0%   { margin-left: 0px; }
+      50%  { margin-left: 35px; }
+      100% { margin-left: 0px; }
+    }
 
-    .card {
-      background: var(--card-bg);
+    .wrap{
+      width:100%;
+      max-width:860px;
+      padding:20px;
+      position:relative;
+      z-index:1;
+    }
+
+    .topbar{
+      background:var(--card-bg);
+      border-radius:var(--radius);
+      padding:14px 20px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      box-shadow:0 10px 20px rgba(0,0,0,0.08);
+      border:1px solid rgba(255,255,255,0.45);
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+    .brand img{
+      width:52px;
+      height:52px;
+      border-radius:14px;
+    }
+    .brand-text{
+      display:flex;
+      flex-direction:column;
+      line-height:1.05;
+    }
+    .brand-title{
+      font-weight:950;
+      font-size:20px;
+      color:#0b1220;
+      letter-spacing:.2px;
+    }
+    .brand-tagline{
+      font-weight:800;
+      font-size:13px;
+      color:var(--muted);
+      margin-top:4px;
+    }
+
+    .card{
+      background:var(--card-bg);
       backdrop-filter: blur(10px);
-      border-radius: var(--radius);
-      padding: 30px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-      border: 1px solid rgba(255,255,255,0.3);
-      margin-top: 20px;
+      border-radius:var(--radius);
+      padding:28px;
+      box-shadow:0 20px 40px rgba(0,0,0,0.14);
+      border:1px solid rgba(255,255,255,0.35);
+      margin-top:18px;
     }
 
-    .topbar {
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      padding: 15px 25px;
-      display: flex; align-items: center; justify-content: space-between;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    .h1{
+      font-size:30px;
+      font-weight:950;
+      color:var(--text);
+      margin:0 0 8px;
+    }
+    .sub{
+      color:var(--muted);
+      margin:0 0 18px;
+      line-height:1.5;
     }
 
-    .brand { display: flex; align-items: center; gap: 15px; }
-    .brand img { width: 50px; height: 50px; border-radius: 12px; }
-    .brand .title { font-weight: 900; font-size: 20px; color: #1e293b; }
-
-    .h1 { font-size: 28px; font-weight: 900; color: #1e293b; margin-bottom: 10px; }
-    .sub { color: #64748b; margin-bottom: 25px; }
-
-    /* Opções */
-    .opts { display: grid; gap: 12px; margin-top: 20px; }
-    .opt {
-      padding: 15px; border: 2px solid #e2e8f0; border-radius: 15px;
-      cursor: pointer; transition: all 0.2s; background: #fff;
-      display: flex; align-items: center; gap: 12px; font-weight: 600;
+    .info-box{
+      background:#eff6ff;
+      border:1px solid #bfdbfe;
+      border-radius:16px;
+      padding:14px 14px;
+      color:#1e3a8a;
+      margin:14px 0 16px;
+      font-weight:700;
+      line-height:1.4;
     }
-    .opt:hover { border-color: var(--primary); background: #eff6ff; }
-    .opt.correct { background: #dcfce7 !important; border-color: var(--success) !important; color: #166534; }
-    .opt.wrong { background: #fee2e2 !important; border-color: var(--danger) !important; color: #991b1b; }
-    .opt.disabled { cursor: not-allowed; opacity: 0.7; }
-
-    /* Toast Centralizado */
-    .overlay {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.4);
-      backdrop-filter: blur(4px); display: none;
-      justify-content: center; align-items: center; z-index: 1000;
+    .info-box small{
+      display:block;
+      font-weight:700;
+      opacity:.85;
+      margin-top:8px;
+      color:#1e40af;
     }
-    .toast-center {
-      background: white; padding: 30px; border-radius: 25px;
-      max-width: 400px; width: 90%; text-align: center;
-      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
-      animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    input#fullName{
+      width:100%;
+      padding:14px 14px;
+      border-radius:14px;
+      border:2px solid #e2e8f0;
+      font-size:16px;
+      margin:10px 0 12px;
+      outline:none;
+      background:#fff;
     }
-    @keyframes pop { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-
-    .toast-center h2 { margin: 0 0 10px; font-size: 24px; }
-    .toast-center p { color: #475569; line-height: 1.5; margin-bottom: 20px; }
-
-    /* Botões */
-    button {
-      padding: 12px 24px; border-radius: 12px; border: none;
-      font-weight: 800; cursor: pointer; transition: 0.2s;
+    input#fullName:focus{
+      border-color:#93c5fd;
+      box-shadow:0 0 0 4px rgba(37,99,235,.10);
     }
-    .btn-primary { background: var(--primary); color: white; }
-    .btn-next { background: #1e293b; color: white; width: 100%; margin-top: 15px; }
 
-    /* Tela de Resultado */
-    #resultScreen { text-align: center; display: none; }
-    .score-badge { font-size: 60px; font-weight: 900; margin: 20px 0; display: block; }
-    .rank-tag {
-      display: inline-block; padding: 8px 20px; border-radius: 999px;
-      font-weight: 900; text-transform: uppercase; letter-spacing: 1px;
-      margin-bottom: 20px;
+    button{
+      padding:12px 18px;
+      border-radius:14px;
+      border:none;
+      font-weight:900;
+      cursor:pointer;
+      transition:.15s;
     }
-    .rank-iniciante { background: #f1f5f9; color: #475569; }
-    .rank-intermediario { background: #fef3c7; color: #92400e; }
-    .rank-avancado { background: #dcfce7; color: #166534; }
+    button:active{ transform: scale(0.99); }
+    .btn-primary{ background:var(--primary); color:#fff; width:100%; }
+    .btn-ghost{
+      background:transparent;
+      border:2px solid #cbd5e1;
+      color:#0f172a;
+      width:100%;
+      margin-top:10px;
+    }
+    .btn-next{
+      background:#0f172a;
+      color:#fff;
+      width:100%;
+      margin-top:14px;
+      display:none;
+    }
 
-    input#fullName {
-      width: 100%; padding: 15px; border-radius: 12px; border: 2px solid #e2e8f0;
-      font-size: 16px; margin-bottom: 15px; outline: none;
+    /* Quiz */
+    .quiz-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    #timer{
+      font-weight:950;
+      background:#0f172a;
+      color:#fff;
+      padding:8px 12px;
+      border-radius:999px;
+      letter-spacing:.5px;
+      min-width:110px;
+      text-align:center;
+    }
+    #progress{
+      font-weight:850;
+      color:var(--primary);
+    }
+    #qTitle{
+      margin:16px 0 10px;
+      color:#0b1220;
+      font-size:22px;
+      font-weight:950;
+    }
+    .opts{ display:grid; gap:12px; margin-top:12px; }
+    .opt{
+      padding:14px 14px;
+      border:2px solid #e2e8f0;
+      border-radius:16px;
+      cursor:pointer;
+      transition:.18s;
+      background:#fff;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:800;
+      color:#0b1220;
+    }
+    .opt:hover{ border-color:var(--primary); background:#eff6ff; }
+    .opt.correct{ background:#dcfce7!important; border-color:var(--success)!important; color:#166534; }
+    .opt.wrong{ background:#fee2e2!important; border-color:var(--danger)!important; color:#991b1b; }
+    .opt.disabled{ cursor:not-allowed; opacity:.8; }
+
+    /* Feedback overlay */
+    .overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.4);
+      backdrop-filter: blur(4px);
+      display:none;
+      justify-content:center;
+      align-items:center;
+      z-index:1000;
+      padding:16px;
+    }
+    .toast-center{
+      background:#fff;
+      padding:26px;
+      border-radius:24px;
+      max-width:460px;
+      width:100%;
+      text-align:center;
+      box-shadow:0 25px 50px -12px rgba(0,0,0,0.55);
+      animation: pop .28s cubic-bezier(.175,.885,.32,1.275);
+    }
+    @keyframes pop { from{ transform:scale(.86); opacity:0; } to{ transform:scale(1); opacity:1; } }
+    .toast-center h2{ margin:0 0 10px; font-size:24px; font-weight:950; }
+    .toast-center p{ color:#334155; line-height:1.55; margin:0 0 16px; }
+    .mini{
+      color:#64748b;
+      font-weight:800;
+      font-size:13px;
+      margin-top:10px;
+    }
+
+    /* Result screen */
+    #resultScreen{ display:none; text-align:center; }
+    .score-badge{
+      font-size:56px;
+      font-weight:950;
+      margin:14px 0;
+      display:block;
+      color:#0b1220;
+    }
+    .rank-tag{
+      display:inline-block;
+      padding:8px 18px;
+      border-radius:999px;
+      font-weight:950;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      margin-bottom:12px;
+    }
+    .rank-iniciante{ background:#f1f5f9; color:#475569; }
+    .rank-intermediario{ background:#fef3c7; color:#92400e; }
+    .rank-avancado{ background:#dcfce7; color:#166534; }
+
+    .warn{
+      background:#fff7ed;
+      border:1px solid #fed7aa;
+      color:#9a3412;
+      border-radius:16px;
+      padding:14px;
+      font-weight:850;
+      line-height:1.45;
+      margin-top:14px;
+    }
+
+    .muted-note{ color:#64748b; font-weight:800; margin-top:8px; }
+
+    @media (max-width:480px){
+      .card{ padding:20px; }
+      .h1{ font-size:26px; }
+      #qTitle{ font-size:20px; }
     }
   </style>
 </head>
 
 <body>
+  <!-- Camada do fundo com ícones caindo -->
+  <div class="fall-layer" id="fallLayer" aria-hidden="true"></div>
+
   <div class="wrap">
     <div class="topbar">
       <div class="brand">
         <img src="https://mickaelfelipe01-beep.github.io/Atividades/aulas-informatica-alpha/imagens/Design%20sem%20nome%20(8).png" alt="Logo">
-        <div class="title">Instituto ALFA</div>
+        <div class="brand-text">
+          <div class="brand-title">Instituto ALFA</div>
+          <div class="brand-tagline">Formando vencedores!</div>
+        </div>
       </div>
     </div>
 
+    <!-- START -->
     <div class="card" id="startCard">
       <div class="h1">Atividade de Organização</div>
-      <p class="sub">Teste seus conhecimentos sobre Arquivos e Pastas.</p>
+      <p class="sub">Teste seus conhecimentos sobre Arquivos e Pastas. Leia com atenção e faça com calma.</p>
+
+      <div class="info-box">
+        ✅ <b>Importante:</b> esta atividade permite <b>apenas 1 tentativa</b>.
+        A autenticação é feita pelo <b>seu próprio navegador/dispositivo</b>.
+        <small>Se você quiser fazer novamente, será necessária a <b>senha do professor</b> para liberar uma nova tentativa.</small>
+      </div>
+
       <input type="text" id="fullName" placeholder="Digite seu nome completo">
-      <button class="btn-primary" style="width: 100%" onclick="startQuiz()">Começar Atividade →</button>
+
+      <button class="btn-primary" onclick="startQuiz()">Começar Atividade →</button>
+      <button class="btn-ghost" onclick="requestReset()">Liberar nova tentativa (senha do professor)</button>
+
+      <div class="warn" id="lockWarn" style="display:none;">
+        🚫 <b>Tentativa já registrada neste navegador.</b><br>
+        Para fazer novamente, peça ao professor a senha para liberar.
+      </div>
+
+      <div class="muted-note">
+        Dica: não feche a página durante a atividade.
+      </div>
     </div>
 
+    <!-- QUIZ -->
     <div class="card" id="quizCard" style="display:none">
-      <div id="timer" style="float:right; font-weight:900">⏳ 60:00</div>
-      <div id="progress" style="font-weight:700; color:var(--primary)">Questão 1 de 10</div>
-      <h2 id="qTitle" style="margin-top:20px">Carregando...</h2>
+      <div class="quiz-head">
+        <div id="progress">Questão 1 de 10</div>
+        <div id="timer">⏳ 60:00</div>
+      </div>
+
+      <h2 id="qTitle">Carregando...</h2>
+
       <div class="opts" id="qOpts"></div>
-      <button id="btnNext" class="btn-next" style="display:none" onclick="nextQuestion()">Próxima Questão</button>
+
+      <button id="btnNext" class="btn-next" onclick="nextQuestion()">Próxima Questão</button>
+      <div class="mini" id="miniHelp"></div>
     </div>
 
+    <!-- RESULT -->
     <div class="card" id="resultScreen">
       <div id="resultEmoji" style="font-size: 80px;">🏆</div>
       <div class="h1" id="resultTitle">Excelente trabalho!</div>
-      <p id="resultMsg">Você concluiu a atividade com sucesso.</p>
-      <span id="rankTag" class="rank-tag">Iniciante</span>
+      <p id="resultMsg" class="sub" style="margin-top:8px;">Você concluiu a atividade com sucesso.</p>
+
+      <span id="rankTag" class="rank-tag rank-iniciante">Iniciante</span>
       <span class="score-badge" id="finalScore">0/10</span>
-      <p style="color: #64748b">Sua resposta foi enviada para o professor.</p>
+
+      <p style="color:#64748b; font-weight:800; margin:0;">
+        Sua resposta foi enviada para o professor.
+      </p>
     </div>
   </div>
 
+  <!-- FEEDBACK -->
   <div class="overlay" id="feedbackOverlay">
     <div class="toast-center">
       <h2 id="feedbackTitle">Correto!</h2>
@@ -150,7 +396,24 @@
   </div>
 
   <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzAf9xsIY5JFcPmn2P5zCeCgIPledAWpYu8Nb-i7XnvDmE8l-IB5r_jRFc91XCtN_d4/exec"; // <--- COLOQUE A URL AQUI
+    /***********************
+     * CONFIGURAÇÕES
+     ***********************/
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzAf9xsIY5JFcPmn2P5zCeCgIPledAWpYu8Nb-i7XnvDmE8l-IB5r_jRFc91XCtN_d4/exec"; // <-- SUA URL DO APP SCRIPT
+    const ACTIVITY_ID = "ARQUIVOS_2026";
+    const TIME_LIMIT_SEC = 3600; // 60 min
+
+    // Troque aqui pela senha do professor (não publique a senha real em repositório público)
+    const PROFESSOR_PASSWORD = "ALFA@2026";
+
+    // Ícones que vão cair (folhas)
+    const LEAF_ICONS = [
+      "https://mickaelfelipe01-beep.github.io/Atividades/aulas-informatica-alpha/imagens/1.png",
+      "https://mickaelfelipe01-beep.github.io/Atividades/aulas-informatica-alpha/imagens/2.png",
+      "https://mickaelfelipe01-beep.github.io/Atividades/aulas-informatica-alpha/imagens/3.png",
+      "https://mickaelfelipe01-beep.github.io/Atividades/aulas-informatica-alpha/imagens/4.png"
+    ];
+
     const QUESTIONS = [
       { q: "O que é um ARQUIVO no computador?", opts: ["Local para guardar pastas", "Qualquer coisa que contém informação (foto, texto, vídeo)", "Programa que apaga tudo", "Pasta secreta"], ans: 1, exp: "Arquivos são as unidades básicas de informação. Pense neles como o 'documento' e a pasta como a 'gaveta'." },
       { q: "O que é uma PASTA?", opts: ["Local para guardar arquivos e outras pastas", "Um tipo de vídeo", "Arquivo de texto", "Instalador do Windows"], ans: 0, exp: "Pastas servem exclusivamente para organizar e agrupar seus arquivos." },
@@ -164,27 +427,141 @@
       { q: "Na regra 5-5-5, o que significa Backup?", opts: ["Deletar tudo", "Cópia de segurança", "Mudar o nome", "Criar 5 pastas"], ans: 1, exp: "Backup é ter uma cópia em local seguro para não perder seus dados importantes." }
     ];
 
+    /***********************
+     * CONTROLE DE 1 TENTATIVA
+     ***********************/
+    const LOCK_KEY = `quiz_lock_${ACTIVITY_ID}`;
+    function isLocked() {
+      return localStorage.getItem(LOCK_KEY) === "1";
+    }
+    function lockAttempt() {
+      localStorage.setItem(LOCK_KEY, "1");
+    }
+    function unlockAttempt() {
+      localStorage.removeItem(LOCK_KEY);
+    }
+
+    /***********************
+     * ESTADO DO QUIZ
+     ***********************/
     let currentIdx = 0;
     let score = 0;
-    let userAnswers = [];
     let userName = "";
-    let startTime = Date.now();
+    let startTimeMs = 0;
 
+    // Timer
+    let timeLeft = TIME_LIMIT_SEC;
+    let timerInterval = null;
+
+    // Respostas (para planilha)
+    let answersForSheet = {}; // {q1:"...", q2:"..."}
+    let userAnswersDetail = []; // detalhe (opcional)
+
+    /***********************
+     * FUNÇÕES UTILITÁRIAS
+     ***********************/
+    function pad2(n){ return String(n).padStart(2,"0"); }
+    function formatMMSS(sec){
+      const m = Math.floor(sec / 60);
+      const s = sec % 60;
+      return `${pad2(m)}:${pad2(s)}`;
+    }
+
+    function updateTimerUI(){
+      const el = document.getElementById("timer");
+      el.textContent = `⏳ ${formatMMSS(timeLeft)}`;
+      if(timeLeft <= 60){
+        el.style.background = "#dc2626";
+      } else if(timeLeft <= 300){
+        el.style.background = "#b45309";
+      } else {
+        el.style.background = "#0f172a";
+      }
+    }
+
+    function startCountdown(){
+      stopCountdown();
+      updateTimerUI();
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        updateTimerUI();
+
+        if(timeLeft <= 0){
+          timeLeft = 0;
+          updateTimerUI();
+          stopCountdown();
+          // Auto envio ao acabar o tempo
+          finishQuiz(true);
+        }
+      }, 1000);
+    }
+
+    function stopCountdown(){
+      if(timerInterval){
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+    }
+
+    function showLockedWarning(show){
+      document.getElementById("lockWarn").style.display = show ? "block" : "none";
+    }
+
+    /***********************
+     * INÍCIO
+     ***********************/
     function startQuiz() {
+      // Bloqueio por 1 tentativa
+      if (isLocked()) {
+        showLockedWarning(true);
+        return;
+      }
+      showLockedWarning(false);
+
       userName = document.getElementById('fullName').value.trim();
       if(userName.length < 5) { alert("Por favor, digite seu nome completo."); return; }
+
+      // Inicializa estado
+      currentIdx = 0;
+      score = 0;
+      answersForSheet = {};
+      userAnswersDetail = [];
+
+      // Início do tempo
+      startTimeMs = Date.now();
+      timeLeft = TIME_LIMIT_SEC;
+      startCountdown();
+
       document.getElementById('startCard').style.display = 'none';
       document.getElementById('quizCard').style.display = 'block';
+      document.getElementById('resultScreen').style.display = 'none';
+
       renderQuestion();
     }
 
+    function requestReset(){
+      const pass = prompt("Senha do professor para liberar nova tentativa:");
+      if(pass === null) return;
+      if(pass === PROFESSOR_PASSWORD){
+        unlockAttempt();
+        alert("Nova tentativa liberada neste navegador ✅");
+        showLockedWarning(false);
+      } else {
+        alert("Senha incorreta ❌");
+      }
+    }
+
+    /***********************
+     * QUESTÕES
+     ***********************/
     function renderQuestion() {
       const q = QUESTIONS[currentIdx];
       document.getElementById('progress').innerText = `Questão ${currentIdx + 1} de ${QUESTIONS.length}`;
       document.getElementById('qTitle').innerText = q.q;
+
       const optsDiv = document.getElementById('qOpts');
       optsDiv.innerHTML = '';
-      
+
       q.opts.forEach((opt, i) => {
         const btn = document.createElement('div');
         btn.className = 'opt';
@@ -192,18 +569,30 @@
         btn.onclick = () => checkAnswer(i);
         optsDiv.appendChild(btn);
       });
+
       document.getElementById('btnNext').style.display = 'none';
+      document.getElementById('miniHelp').textContent = "Clique em uma alternativa para responder.";
     }
 
     function checkAnswer(i) {
       const q = QUESTIONS[currentIdx];
       const opts = document.querySelectorAll('.opt');
-      if (opts[0].classList.contains('disabled')) return;
+      if (opts.length && opts[0].classList.contains('disabled')) return;
 
       const isCorrect = (i === q.ans);
       if(isCorrect) score++;
 
-      userAnswers.push({ q: q.q, selected: q.opts[i], correct: q.opts[q.ans], status: isCorrect });
+      // Salvar no formato da planilha (Q1, Q2, ...)
+      const qKey = "q" + (currentIdx + 1);
+      answersForSheet[qKey] = q.opts[i];
+
+      // Detalhe (opcional)
+      userAnswersDetail.push({
+        q: q.q,
+        selected: q.opts[i],
+        correct: q.opts[q.ans],
+        status: isCorrect
+      });
 
       opts.forEach((opt, idx) => {
         opt.classList.add('disabled');
@@ -211,32 +600,48 @@
         if(idx === i && !isCorrect) opt.classList.add('wrong');
       });
 
-      // Mostrar Feedback Centralizado
+      // Feedback centralizado
       document.getElementById('feedbackOverlay').style.display = 'flex';
       document.getElementById('feedbackTitle').innerText = isCorrect ? "✅ Muito bem!" : "❌ Quase lá...";
       document.getElementById('feedbackTitle').style.color = isCorrect ? "var(--success)" : "var(--danger)";
-      document.getElementById('feedbackText').innerHTML = `<b>A resposta correta era: ${q.opts[q.ans]}</b><br><br>${q.exp}`;
-      
+      document.getElementById('feedbackText').innerHTML =
+        `<b>A resposta correta era:</b> ${q.opts[q.ans]}<br><br>${q.exp}`;
+
       document.getElementById('btnNext').style.display = 'block';
+      document.getElementById('miniHelp').textContent = "Depois do feedback, avance para a próxima questão.";
     }
 
     function closeFeedback() {
       document.getElementById('feedbackOverlay').style.display = 'none';
+
       if(currentIdx === QUESTIONS.length - 1) {
-        finishQuiz();
+        finishQuiz(false);
       }
     }
 
     function nextQuestion() {
       currentIdx++;
+      if(currentIdx >= QUESTIONS.length){
+        finishQuiz(false);
+        return;
+      }
       renderQuestion();
     }
 
-    async function finishQuiz() {
+    /***********************
+     * FINALIZAÇÃO + ENVIO
+     ***********************/
+    async function finishQuiz(autoByTime){
+      stopCountdown();
+
+      // Bloqueia tentativa (1 tentativa por navegador)
+      lockAttempt();
+
       document.getElementById('quizCard').style.display = 'none';
       document.getElementById('resultScreen').style.display = 'block';
-      
-      const percent = (score / QUESTIONS.length) * 10;
+
+      // Monta resultado (nota mínima 6)
+      const minScore = 6;
       let rank = "";
       let title = "";
       let msg = "";
@@ -244,15 +649,25 @@
 
       if(score >= 9) {
         rank = "Avançado"; title = "Incrível!"; msg = "Você domina o assunto perfeitamente!"; emoji = "🏆";
-      } else if(score >= 6) {
-        rank = "Intermediário"; title = "Muito bom!"; msg = "Você tem uma ótima base, continue assim!"; emoji = "🥈";
+      } else if(score >= minScore) {
+        rank = "Intermediário"; title = "Parabéns!"; msg = "Você atingiu uma boa nota. Continue assim!"; emoji = "🥈";
       } else {
-        rank = "Iniciante"; title = "Não desanime!"; msg = "Estude mais um pouco e tente a próxima vez!"; emoji = "📚";
+        rank = "Iniciante"; title = "Não desanime!"; msg = "Faltou pouco. Revise o conteúdo e você vai melhorar na próxima!"; emoji = "📚";
+      }
+
+      if(autoByTime){
+        msg = "⏰ O tempo acabou, mas sua tentativa foi enviada automaticamente.";
       }
 
       document.getElementById('finalScore').innerText = `${score}/${QUESTIONS.length}`;
       document.getElementById('rankTag').innerText = rank;
-      document.getElementById('rankTag').className = `rank-tag rank-${rank.toLowerCase()}`;
+
+      const classMap = {
+        "Iniciante": "rank-iniciante",
+        "Intermediário": "rank-intermediario",
+        "Avançado": "rank-avancado"
+      };
+      document.getElementById('rankTag').className = `rank-tag ${classMap[rank] || "rank-iniciante"}`;
       document.getElementById('resultTitle').innerText = title;
       document.getElementById('resultMsg').innerText = msg;
       document.getElementById('resultEmoji').innerText = emoji;
@@ -260,16 +675,17 @@
       // Enviar para o Google Sheets
       const payload = {
         action: "submit",
-        activityId: "ARQUIVOS_2026",
+        activityId: ACTIVITY_ID,
         name: userName,
-        deviceId: "dev_" + Math.random().toString(36).substr(2, 9),
-        startedAt: startTime,
-        endedAt: Date.now(),
-        timeLimitSec: 3600,
-        autoSubmit: false,
-        score: score,
-        total: QUESTIONS.length,
-        answers: userAnswers
+        deviceId: "dev_" + Math.random().toString(36).slice(2, 11),
+        startedAt: startTimeMs,
+        submittedAt: Date.now(),
+        timeLimitSec: TIME_LIMIT_SEC,
+        remainingSeconds: timeLeft,
+        scoreMC: score,
+        levelMC: rank,
+        answers: answersForSheet,
+        answersDetail: userAnswersDetail
       };
 
       try {
@@ -278,8 +694,61 @@
           mode: "no-cors",
           body: JSON.stringify(payload)
         });
-      } catch (e) { console.log("Erro ao salvar"); }
+      } catch (e) {
+        console.log("Erro ao salvar:", e);
+      }
     }
+
+    /***********************
+     * FUNDO COM ÍCONES CAINDO
+     ***********************/
+    function rand(min, max){ return Math.random() * (max - min) + min; }
+    function pick(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
+
+    function spawnLeaves(){
+      const layer = document.getElementById("fallLayer");
+      layer.innerHTML = "";
+
+      const count = 26; // quantidade de "folhas"
+      for(let i=0;i<count;i++){
+        const el = document.createElement("div");
+        el.className = "leaf";
+
+        const size = Math.floor(rand(16, 26)); // pequeno
+        el.style.width = size + "px";
+        el.style.height = size + "px";
+
+        el.style.left = rand(0, 100) + "vw";
+        el.style.opacity = rand(0.45, 0.85);
+
+        el.style.backgroundImage = `url('${pick(LEAF_ICONS)}')`;
+
+        const fallDur = rand(8, 16);
+        const swayDur = rand(2.6, 5.0);
+        const delay = rand(0, 8);
+
+        el.style.animationDuration = `${fallDur}s, ${swayDur}s`;
+        el.style.animationDelay = `-${delay}s, 0s`;
+
+        // variação do sway
+        el.style.transform = `rotate(${Math.floor(rand(0, 360))}deg)`;
+
+        layer.appendChild(el);
+      }
+    }
+
+    /***********************
+     * BOOT
+     ***********************/
+    window.addEventListener("load", () => {
+      spawnLeaves();
+
+      // Se já fez a tentativa, mostrar aviso imediatamente
+      if(isLocked()){
+        showLockedWarning(true);
+      }
+      updateTimerUI();
+    });
   </script>
 </body>
 </html>
