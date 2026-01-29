@@ -615,8 +615,8 @@
     /***********************
      * CONFIG
      ***********************/
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzbpqy_jPs93pF8VanfiZ-WDGWqJs-k7MwWjjYWbsEV1JdiJlYnfgXsYGlKB06bdHE/exec"; // <-- troque se precisar
-    const ACTIVITY_ID = "aula-01-02-2026.gs";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzbpqy_jPs93pF8VanfiZ-WDGWqJs-k7MwWjjYWbsEV1JdiJlYnfgXsYGlKB06bdHE/exec"; // <-- mantenha seu
+    const ACTIVITY_ID = "CONFIG_WIN_2026"; // ✅ CORRIGIDO
     const TIME_LIMIT_SEC = 3600; // 60 min
     const MIN_SCORE = 6;
 
@@ -632,122 +632,62 @@
 
     // ✅ NOVAS QUESTÕES: CONFIGURAÇÕES DO WINDOWS (com exp + dica)
     const QUESTIONS = [
-      {
-        q:"Para que serve o Painel de Configurações do Windows?",
-        opts:[
-          "Apenas para instalar jogos",
-          "Para ajustar e personalizar o funcionamento do computador",
-          "Somente para desligar o computador",
-          "Apenas para acessar a internet"
-        ],
+      { q:"Para que serve o Painel de Configurações do Windows?",
+        opts:["Apenas para instalar jogos","Para ajustar e personalizar o funcionamento do computador","Somente para desligar o computador","Apenas para acessar a internet"],
         ans:1,
         exp:"O Painel de Configurações reúne ajustes do sistema (tela, som, conta, idioma, data e muito mais). É onde você controla como o Windows funciona.",
         hint:"Pense nele como o “painel de controle” do Windows, onde você muda como o computador se comporta."
       },
-      {
-        q:"Onde podemos alterar o idioma do sistema no Windows?",
-        opts:[
-          "Configurações de Tela",
-          "Configurações de Rede",
-          "Configurações de Idioma, Data e Hora",
-          "Configurações de Som"
-        ],
+      { q:"Onde podemos alterar o idioma do sistema no Windows?",
+        opts:["Configurações de Tela","Configurações de Rede","Configurações de Idioma, Data e Hora","Configurações de Som"],
         ans:2,
         exp:"A mudança de idioma fica em Hora e Idioma (Idioma e região). É o local certo para ajustar idioma do Windows e região.",
         hint:"Quando o assunto é idioma/teclado/região, o caminho geralmente é “Hora e Idioma”."
       },
-      {
-        q:"Qual a função do ajuste de data e hora no Windows?",
-        opts:[
-          "Melhorar o som",
-          "Ajustar o brilho da tela",
-          "Garantir o horário correto do sistema",
-          "Alterar o papel de parede"
-        ],
+      { q:"Qual a função do ajuste de data e hora no Windows?",
+        opts:["Melhorar o som","Ajustar o brilho da tela","Garantir o horário correto do sistema","Alterar o papel de parede"],
         ans:2,
         exp:"Data e hora corretas evitam problemas em sites, login de contas, certificados e sincronização de aplicativos.",
         hint:"Se a hora estiver errada, até site pode dar erro. Então o objetivo é manter o relógio do sistema certo."
       },
-      {
-        q:"O que a resolução de tela influencia?",
-        opts:[
-          "A velocidade da internet",
-          "A nitidez e o tamanho dos elementos na tela",
-          "O volume do som",
-          "A segurança do sistema"
-        ],
+      { q:"O que a resolução de tela influencia?",
+        opts:["A velocidade da internet","A nitidez e o tamanho dos elementos na tela","O volume do som","A segurança do sistema"],
         ans:1,
         exp:"Resolução e escala determinam como a imagem aparece: mais nítida/ajustada ou borrada/esticada e com elementos muito grandes/pequenos.",
         hint:"Quando a tela fica “estourada” ou “borrada”, quase sempre é resolução/escala."
       },
-      {
-        q:"Qual opção permite ajustar brilho e escala da tela?",
-        opts:[
-          "Som",
-          "Personalização",
-          "Tela e Resolução",
-          "Conta de Usuário"
-        ],
+      { q:"Qual opção permite ajustar brilho e escala da tela?",
+        opts:["Som","Personalização","Tela e Resolução","Conta de Usuário"],
         ans:2,
         exp:"Esses ajustes ficam em Sistema > Tela. Lá você encontra brilho, escala e resolução (dependendo do equipamento).",
         hint:"Brilho, escala e resolução são ajustes visuais — ficam em “Tela”."
       },
-      {
-        q:"Onde configuramos fones de ouvido e microfone no Windows?",
-        opts:[
-          "Tela",
-          "Personalização",
-          "Som e Dispositivos de Áudio",
-          "Idioma"
-        ],
+      { q:"Onde configuramos fones de ouvido e microfone no Windows?",
+        opts:["Tela","Personalização","Som e Dispositivos de Áudio","Idioma"],
         ans:2,
         exp:"Em Sistema > Som, você escolhe o dispositivo de saída (fones/caixa) e o de entrada (microfone), além de testar e ajustar volume.",
         hint:"Se é áudio (ouvir e falar), procure por “Som”."
       },
-      {
-        q:"Para que serve a Conta de Usuário no Windows?",
-        opts:[
-          "Apenas para acessar a internet",
-          "Para identificar o usuário e definir permissões",
-          "Para ajustar o som",
-          "Para trocar o papel de parede"
-        ],
+      { q:"Para que serve a Conta de Usuário no Windows?",
+        opts:["Apenas para acessar a internet","Para identificar o usuário e definir permissões","Para ajustar o som","Para trocar o papel de parede"],
         ans:1,
         exp:"A conta guarda preferências, arquivos do usuário e define permissões (o que pode ou não fazer no PC).",
         hint:"Conta de usuário = quem está usando o PC e quais limites/permissões essa pessoa tem."
       },
-      {
-        q:"Qual tipo de conta pode instalar programas e alterar o sistema?",
-        opts:[
-          "Usuário convidado",
-          "Usuário padrão",
-          "Conta bloqueada",
-          "Conta de administrador"
-        ],
+      { q:"Qual tipo de conta pode instalar programas e alterar o sistema?",
+        opts:["Usuário convidado","Usuário padrão","Conta bloqueada","Conta de administrador"],
         ans:3,
         exp:"A conta de administrador tem permissões elevadas: instalar programas, alterar configurações avançadas e gerenciar usuários.",
         hint:"Quem “manda no computador” é o administrador."
       },
-      {
-        q:"O que pode ser alterado na área de Personalização?",
-        opts:[
-          "Idioma do teclado",
-          "Papel de parede, cores e temas",
-          "Data e hora",
-          "Microfone"
-        ],
+      { q:"O que pode ser alterado na área de Personalização?",
+        opts:["Idioma do teclado","Papel de parede, cores e temas","Data e hora","Microfone"],
         ans:1,
         exp:"Em Personalização você muda aparência: plano de fundo, cores, tema e, em alguns casos, tela de bloqueio.",
         hint:"Personalização = deixar o Windows com a sua cara."
       },
-      {
-        q:"Por que as configurações do Windows são importantes?",
-        opts:[
-          "Apenas para deixar o computador bonito",
-          "Apenas para jogos",
-          "Para tornar o sistema funcional, seguro e confortável",
-          "Somente para técnicos"
-        ],
+      { q:"Por que as configurações do Windows são importantes?",
+        opts:["Apenas para deixar o computador bonito","Apenas para jogos","Para tornar o sistema funcional, seguro e confortável","Somente para técnicos"],
         ans:2,
         exp:"Configurações corretas melhoram uso diário, evitam erros (data/hora), resolvem problemas comuns (som/tela) e ajudam na segurança (contas).",
         hint:"Não é só beleza: é controle, funcionamento e segurança."
@@ -866,7 +806,6 @@
       const t = document.getElementById("statusTitle");
       const d = document.getElementById("statusDesc");
 
-      // type: "success" | "danger" | "primary"
       icon.classList.remove("ico-success","ico-danger","ico-primary");
       if(type==="danger"){
         icon.classList.add("ico-danger");
@@ -909,7 +848,6 @@
       }
     }
 
-    // Enter no input para confirmar
     document.addEventListener("keydown", (e)=>{
       const resetOpen = document.getElementById("resetOverlay").style.display === "flex";
       const statusOpen = document.getElementById("statusOverlay").style.display === "flex";
@@ -981,10 +919,8 @@
       renderQuestion();
     }
 
-    // ✅ Dica 1x por questão
     function showHint(){
-      if(hintUsed[currentIdx]) return; // já usou
-
+      if(hintUsed[currentIdx]) return;
       hintUsed[currentIdx] = true;
       setHintButtonState();
 
@@ -1042,7 +978,6 @@
       }
     }
 
-    // Folhas
     function rand(min,max){ return Math.random()*(max-min)+min; }
     function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
     function spawnLeaves(){
