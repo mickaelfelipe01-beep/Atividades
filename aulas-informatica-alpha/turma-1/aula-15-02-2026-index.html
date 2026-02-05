@@ -1,0 +1,994 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Atividade — Internet, Navegadores e Downloads</title>
+
+  <link rel="icon" type="image/png" href="https://mickaelfelipe01-beep.github.io/Atividades/aulas-informatica-alpha/imagens/Design%20sem%20nome%20(8).png">
+
+  <style>
+    :root{
+      --primary:#2563eb;
+      --success:#16a34a;
+      --danger:#dc2626;
+      --text:#0f172a;
+      --muted:#64748b;
+      --card-bg:rgba(255,255,255,.94);
+      --radius:20px;
+    }
+    *{ box-sizing:border-box; }
+
+    body{
+      margin:0;
+      font-family:'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+      background: radial-gradient(1200px 600px at 20% 10%, #e0f2fe 0%, transparent 60%),
+                  radial-gradient(900px 600px at 90% 30%, #dbeafe 0%, transparent 60%),
+                  linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+      overflow-x:hidden;
+    }
+
+    .fall-layer{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      overflow:hidden;
+      z-index:0;
+    }
+    .leaf{
+      position:absolute;
+      top:-60px;
+      width:22px;
+      height:22px;
+      background-size:contain;
+      background-repeat:no-repeat;
+      opacity:.75;
+      filter: drop-shadow(0 6px 10px rgba(0,0,0,.12));
+      animation-name: fall, sway;
+      animation-timing-function: linear, ease-in-out;
+      animation-iteration-count: infinite, infinite;
+      will-change: transform;
+    }
+    @keyframes fall{
+      0%   { transform: translateY(-80px) rotate(0deg); }
+      100% { transform: translateY(calc(100vh + 120px)) rotate(360deg); }
+    }
+    @keyframes sway{
+      0%   { margin-left: 0px; }
+      50%  { margin-left: 35px; }
+      100% { margin-left: 0px; }
+    }
+
+    .wrap{
+      width:100%;
+      max-width:860px;
+      padding:20px;
+      position:relative;
+      z-index:1;
+    }
+
+    .topbar{
+      background:var(--card-bg);
+      border-radius:var(--radius);
+      padding:14px 20px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      box-shadow:0 10px 20px rgba(0,0,0,0.08);
+      border:1px solid rgba(255,255,255,0.45);
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+    .brand img{
+      width:52px;
+      height:52px;
+      border-radius:14px;
+    }
+    .brand-text{
+      display:flex;
+      flex-direction:column;
+      line-height:1.05;
+    }
+    .brand-title{
+      font-weight:950;
+      font-size:20px;
+      color:#0b1220;
+      letter-spacing:.2px;
+    }
+    .brand-tagline{
+      font-weight:800;
+      font-size:13px;
+      color:var(--muted);
+      margin-top:4px;
+    }
+
+    .card{
+      background:var(--card-bg);
+      backdrop-filter: blur(10px);
+      border-radius:var(--radius);
+      padding:28px;
+      box-shadow:0 20px 40px rgba(0,0,0,0.14);
+      border:1px solid rgba(255,255,255,0.35);
+      margin-top:18px;
+    }
+
+    .h1{
+      font-size:30px;
+      font-weight:950;
+      color:var(--text);
+      margin:0 0 8px;
+    }
+    .sub{
+      color:var(--muted);
+      margin:0 0 18px;
+      line-height:1.5;
+    }
+
+    .info-box{
+      background:#eff6ff;
+      border:1px solid #bfdbfe;
+      border-radius:16px;
+      padding:14px 14px;
+      color:#1e3a8a;
+      margin:14px 0 16px;
+      font-weight:700;
+      line-height:1.4;
+    }
+    .info-box small{
+      display:block;
+      font-weight:700;
+      opacity:.85;
+      margin-top:8px;
+      color:#1e40af;
+    }
+
+    input#fullName{
+      width:100%;
+      padding:14px 14px;
+      border-radius:14px;
+      border:2px solid #e2e8f0;
+      font-size:16px;
+      margin:10px 0 12px;
+      outline:none;
+      background:#fff;
+    }
+    input#fullName:focus{
+      border-color:#93c5fd;
+      box-shadow:0 0 0 4px rgba(37,99,235,.10);
+    }
+
+    button{
+      padding:12px 18px;
+      border-radius:14px;
+      border:none;
+      font-weight:900;
+      cursor:pointer;
+      transition:.15s;
+    }
+    button:active{ transform: scale(0.99); }
+    .btn-primary{ background:var(--primary); color:#fff; width:100%; }
+    .btn-ghost{
+      background:transparent;
+      border:2px solid #cbd5e1;
+      color:#0f172a;
+      width:100%;
+      margin-top:10px;
+    }
+    .btn-next{
+      background:#0f172a;
+      color:#fff;
+      width:100%;
+      margin-top:14px;
+      display:none;
+    }
+
+    .qtop{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .qtop-right{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    #timer{
+      font-weight:950;
+      background:#0f172a;
+      color:#fff;
+      padding:8px 12px;
+      border-radius:999px;
+      letter-spacing:.5px;
+      min-width:110px;
+      text-align:center;
+    }
+    #progress{
+      font-weight:850;
+      color:var(--primary);
+    }
+    #qTitle{
+      margin:16px 0 10px;
+      color:#0b1220;
+      font-size:22px;
+      font-weight:950;
+    }
+
+    .hint-btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:999px;
+      border:2px solid #fde68a;
+      background:#fffbeb;
+      color:#92400e;
+      font-weight:950;
+      cursor:pointer;
+      transition:.15s;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .hint-btn:hover{ transform: translateY(-1px); }
+    .hint-btn:active{ transform: scale(0.99); }
+    .hint-btn.disabled{
+      opacity:.55;
+      cursor:not-allowed;
+      filter: grayscale(0.2);
+    }
+    .hint-ico{
+      width:28px;
+      height:28px;
+      border-radius:999px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#fef3c7;
+      border:1px solid #fde68a;
+      font-size:16px;
+    }
+    .hint-sub{
+      font-weight:900;
+      font-size:12px;
+      color:#b45309;
+      margin-top:2px;
+    }
+    .hint-textwrap{
+      display:flex;
+      flex-direction:column;
+      line-height:1.0;
+    }
+
+    .opts{ display:grid; gap:12px; margin-top:12px; }
+    .opt{
+      padding:14px 14px;
+      border:2px solid #e2e8f0;
+      border-radius:16px;
+      cursor:pointer;
+      transition:.18s;
+      background:#fff;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:800;
+      color:#0b1220;
+    }
+    .opt:hover{ border-color:var(--primary); background:#eff6ff; }
+    .opt.correct{ background:#dcfce7!important; border-color:var(--success)!important; color:#166534; }
+    .opt.wrong{ background:#fee2e2!important; border-color:var(--danger)!important; color:#991b1b; }
+    .opt.disabled{ cursor:not-allowed; opacity:.8; }
+
+    .overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.4);
+      backdrop-filter: blur(4px);
+      display:none;
+      justify-content:center;
+      align-items:center;
+      z-index:1000;
+      padding:16px;
+    }
+    .toast-center{
+      background:#fff;
+      padding:26px;
+      border-radius:24px;
+      max-width:520px;
+      width:100%;
+      text-align:center;
+      box-shadow:0 25px 50px -12px rgba(0,0,0,0.55);
+      animation: pop .28s cubic-bezier(.175,.885,.32,1.275);
+    }
+    @keyframes pop { from{ transform:scale(.86); opacity:0; } to{ transform:scale(1); opacity:1; } }
+    .toast-center h2{ margin:0 0 10px; font-size:24px; font-weight:950; }
+    .toast-center p{ color:#334155; line-height:1.55; margin:0 0 16px; }
+
+    .hint-box{
+      background:#fffbeb;
+      border:1px solid #fde68a;
+      border-radius:18px;
+      padding:14px;
+      color:#92400e;
+      text-align:left;
+      font-weight:850;
+      line-height:1.45;
+    }
+
+    #resultScreen{ display:none; text-align:center; }
+    .score-badge{
+      font-size:56px;
+      font-weight:950;
+      margin:14px 0;
+      display:block;
+      color:#0b1220;
+    }
+    .rank-tag{
+      display:inline-block;
+      padding:8px 18px;
+      border-radius:999px;
+      font-weight:950;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      margin-bottom:12px;
+    }
+    .rank-iniciante{ background:#f1f5f9; color:#475569; }
+    .rank-intermediario{ background:#fef3c7; color:#92400e; }
+    .rank-avancado{ background:#dcfce7; color:#166534; }
+
+    .warn{
+      background:#fff7ed;
+      border:1px solid #fed7aa;
+      color:#9a3412;
+      border-radius:16px;
+      padding:14px;
+      font-weight:850;
+      line-height:1.45;
+      margin-top:14px;
+      display:none;
+    }
+    .muted-note{ color:#64748b; font-weight:800; margin-top:8px; }
+
+    .modal{
+      background:rgba(255,255,255,.96);
+      border-radius:26px;
+      max-width:560px;
+      width:100%;
+      padding:22px 22px 18px;
+      box-shadow:0 25px 55px rgba(0,0,0,.55);
+      border:1px solid rgba(255,255,255,.45);
+      text-align:left;
+      animation: pop .28s cubic-bezier(.175,.885,.32,1.275);
+    }
+    .modal-top{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      margin-bottom:10px;
+    }
+    .modal-ico{
+      width:52px;
+      height:52px;
+      border-radius:18px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:24px;
+      font-weight:950;
+      border:1px solid rgba(0,0,0,.06);
+    }
+    .ico-primary{ background:#eff6ff; color:#1d4ed8; border-color:#bfdbfe; }
+    .ico-success{ background:#dcfce7; color:#166534; border-color:#bbf7d0; }
+    .ico-danger{  background:#fee2e2; color:#991b1b; border-color:#fecaca; }
+    .modal-title{
+      margin:0;
+      font-size:22px;
+      font-weight:950;
+      color:#0b1220;
+      line-height:1.15;
+    }
+    .modal-desc{
+      margin:2px 0 0;
+      color:#475569;
+      font-weight:800;
+      line-height:1.45;
+      font-size:14px;
+    }
+    .modal-body{
+      margin-top:14px;
+    }
+    .modal-label{
+      display:block;
+      font-weight:950;
+      color:#0f172a;
+      margin:0 0 8px;
+      font-size:14px;
+    }
+    .modal-input{
+      width:100%;
+      padding:14px 14px;
+      border-radius:14px;
+      border:2px solid #e2e8f0;
+      font-size:16px;
+      outline:none;
+      background:#fff;
+    }
+    .modal-input:focus{
+      border-color:#93c5fd;
+      box-shadow:0 0 0 4px rgba(37,99,235,.10);
+    }
+    .modal-foot{
+      display:flex;
+      gap:10px;
+      margin-top:16px;
+      flex-wrap:wrap;
+    }
+    .btn-secondary{
+      width:100%;
+      background:#0f172a;
+      color:#fff;
+    }
+    .btn-cancel{
+      width:100%;
+      background:transparent;
+      border:2px solid #cbd5e1;
+      color:#0f172a;
+    }
+    .tiny-note{
+      margin-top:10px;
+      font-size:12px;
+      color:#64748b;
+      font-weight:800;
+      line-height:1.35;
+    }
+
+    @media (min-width:520px){
+      .modal-foot button{ width:auto; flex:1; }
+    }
+
+    @media (max-width:480px){
+      .card{ padding:20px; }
+      .h1{ font-size:26px; }
+      #qTitle{ font-size:20px; }
+      .hint-btn{ width:100%; justify-content:center; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="fall-layer" id="fallLayer" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <img src="https://mickaelfelipe01-beep.github.io/Atividades/aulas-informatica-alpha/imagens/Design%20sem%20nome%20(8).png" alt="Logo">
+        <div class="brand-text">
+          <div class="brand-title">Instituto ALFA</div>
+          <div class="brand-tagline">Formando vencedores!</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="startCard">
+      <div class="h1">Atividade — Internet, Navegadores e Downloads</div>
+      <p class="sub">Exercite seu conhecimento com base na nossa aula. Leia com atenção e faça com calma.</p>
+
+      <div class="info-box">
+        ✅ <b>Importante:</b> esta atividade permite <b>apenas 1 tentativa</b>.
+        Revise os conceitos sobre Internet, Wi-Fi, navegador, sites, links e downloads. <b>BOA SORTE!</b>.
+        <small>Para fazer novamente, será necessária a <b>senha do professor</b> para liberar uma nova tentativa.</small>
+      </div>
+
+      <input type="text" id="fullName" placeholder="Digite seu nome completo">
+      <button class="btn-primary" onclick="startQuiz()">Começar Atividade →</button>
+      <button class="btn-ghost" onclick="requestReset()">Liberar nova tentativa (senha do professor)</button>
+
+      <div class="warn" id="lockWarn">
+        🚫 <b>Verificamos que você já fez uma tentativa.</b><br>
+        Para fazer novamente, peça ao professor a senha para liberar.
+      </div>
+
+      <div class="muted-note">Dica: não feche a página durante a atividade.</div>
+    </div>
+
+    <div class="card" id="quizCard" style="display:none">
+      <div class="qtop">
+        <div id="progress">Questão 1 de 10</div>
+
+        <div class="qtop-right">
+          <div id="timer">⏳ 60:00</div>
+
+          <div class="hint-btn" id="hintBtn" onclick="showHint()">
+            <div class="hint-ico">💡</div>
+            <div class="hint-textwrap">
+              <div>Quero a dica</div>
+              <div class="hint-sub" id="hintSub">1x por questão</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h2 id="qTitle">Carregando...</h2>
+      <div class="opts" id="qOpts"></div>
+      <button id="btnNext" class="btn-next" onclick="nextQuestion()">Próxima Questão</button>
+    </div>
+
+    <div class="card" id="resultScreen">
+      <div id="resultEmoji" style="font-size: 80px;">🏆</div>
+      <div class="h1" id="resultTitle">Excelente trabalho!</div>
+      <p id="resultMsg" class="sub" style="margin-top:8px;">Você concluiu a atividade com sucesso.</p>
+
+      <span id="rankTag" class="rank-tag rank-iniciante">Iniciante</span>
+      <span class="score-badge" id="finalScore">0/10</span>
+
+      <p style="color:#64748b; font-weight:800; margin:0;">
+        Sua resposta foi enviada para o professor.
+      </p>
+    </div>
+  </div>
+
+  <div class="overlay" id="feedbackOverlay">
+    <div class="toast-center">
+      <h2 id="feedbackTitle">Correto!</h2>
+      <p id="feedbackText">Explicação aqui.</p>
+      <button class="btn-primary" onclick="closeFeedback()">Entendi</button>
+    </div>
+  </div>
+
+  <div class="overlay" id="hintOverlay">
+    <div class="toast-center">
+      <h2 style="margin-bottom:10px;">💡 Dica da questão</h2>
+      <div class="hint-box" id="hintText">...</div>
+      <button class="btn-primary" style="margin-top:14px;" onclick="closeHint()">Entendi</button>
+    </div>
+  </div>
+
+  <div class="overlay" id="resetOverlay" role="dialog" aria-modal="true" aria-labelledby="resetTitle">
+    <div class="modal">
+      <div class="modal-top">
+        <div class="modal-ico ico-primary" id="resetIcon">🔐</div>
+        <div>
+          <h2 class="modal-title" id="resetTitle">Liberar nova tentativa</h2>
+          <p class="modal-desc" id="resetDesc">Digite a senha do professor para liberar uma nova chance.</p>
+        </div>
+      </div>
+
+      <div class="modal-body" id="resetBody">
+        <label class="modal-label" for="resetPass">Senha do professor</label>
+        <input class="modal-input" id="resetPass" type="password" placeholder="Digite a senha..." autocomplete="off" />
+        <div class="tiny-note">Dica: após liberar, o aluno pode clicar em “Começar Atividade” novamente.</div>
+      </div>
+
+      <div class="modal-foot">
+        <button class="btn-cancel" onclick="closeResetModal()">Cancelar</button>
+        <button class="btn-secondary" onclick="confirmResetPassword()">Liberar tentativa ✅</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay" id="statusOverlay" role="dialog" aria-modal="true" aria-labelledby="statusTitle">
+    <div class="modal" style="text-align:center;">
+      <div class="modal-top" style="justify-content:center;">
+        <div class="modal-ico ico-success" id="statusIcon">✅</div>
+        <div style="text-align:left;">
+          <h2 class="modal-title" id="statusTitle">Tudo certo!</h2>
+          <p class="modal-desc" id="statusDesc">Nova tentativa liberada. Pode começar novamente.</p>
+        </div>
+      </div>
+
+      <div class="modal-foot" style="justify-content:center;">
+        <button class="btn-primary" onclick="closeStatusModal()">Entendi</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /***********************
+     * CONFIG
+     ***********************/
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzbpqy_jPs93pF8VanfiZ-WDGWqJs-k7MwWjjYWbsEV1JdiJlYnfgXsYGlKB06bdHE/exec"; // <-- mantenha seu
+    const ACTIVITY_ID = "AULA15_INTERNET_2026"; // ✅ NOVO
+    const TIME_LIMIT_SEC = 3600; // 60 min
+    const MIN_SCORE = 6;
+
+    // ATENÇÃO: se o repositório for público, evite senha real aqui
+    const PROFESSOR_PASSWORD = "ALFA@2026";
+
+    const LEAF_ICONS = [
+      "https://mickaelfelipe01-beep.github.io/Atividades/aulas-informatica-alpha/imagens/1.png",
+      "https://mickaelfelipe01-beep.github.io/Atividades/aulas-informatica-alpha/imagens/2.png",
+      "https://mickaelfelipe01-beep.github.io/Atividades/aulas-informatica-alpha/imagens/3.png",
+      "https://mickaelfelipe01-beep.github.io/Atividades/aulas-informatica-alpha/imagens/4.png"
+    ];
+
+    // ✅ QUESTÕES: Internet, Navegadores e Downloads (com exp + dica)
+    const QUESTIONS = [
+      {
+        q:"O que é a Internet?",
+        opts:["Um aplicativo de mensagens","Um programa do computador","Uma rede mundial de computadores conectados","Uma senha do Wi-Fi"],
+        ans:2,
+        exp:"A Internet é uma grande rede mundial de computadores conectados, permitindo troca de informações em tempo real.",
+        hint:"Pense em “rede mundial”: não é um app, é uma conexão global."
+      },
+      {
+        q:"Qual frase descreve corretamente Internet x Wi-Fi?",
+        opts:["Wi-Fi é o serviço e Internet é o roteador","Internet é o serviço; Wi-Fi é a forma sem fio de acessar","Internet só existe com Wi-Fi","Wi-Fi e Internet são a mesma coisa"],
+        ans:1,
+        exp:"Internet é o serviço (fornecido por um provedor). Wi-Fi é apenas a forma sem fio de acessar a Internet dentro de um local.",
+        hint:"Internet = serviço. Wi-Fi = como você acessa (sem fio)."
+      },
+      {
+        q:"Qual é um exemplo de uso da Internet para estudos?",
+        opts:["Escrever no Word sem conexão","Assistir aula online e pesquisar no Google","Desligar o computador","Organizar arquivos na área de trabalho"],
+        ans:1,
+        exp:"A Internet ajuda nos estudos com aulas online, pesquisas, envio de atividades e trabalhos.",
+        hint:"Se envolve aula online e pesquisa, é estudo com Internet."
+      },
+      {
+        q:"O que é um navegador de Internet?",
+        opts:["Um antivírus","Um programa usado para acessar sites","Um tipo de Wi-Fi","Um arquivo baixado"],
+        ans:1,
+        exp:"Navegador é o programa que usamos para abrir sites e acessar conteúdos da Internet.",
+        hint:"Chrome/Edge/Firefox = navegadores."
+      },
+      {
+        q:"Para que serve a barra de endereços do navegador?",
+        opts:["Para aumentar o volume","Para digitar o endereço (URL) e também fazer pesquisas","Para salvar arquivos automaticamente","Para instalar aplicativos"],
+        ans:1,
+        exp:"Na barra de endereços você digita URLs (ex.: www.google.com) e também pode pesquisar por palavras.",
+        hint:"É onde você digita o site ou pesquisa."
+      },
+      {
+        q:"Qual a utilidade das abas no navegador?",
+        opts:["Abrir vários sites ao mesmo tempo","Limpar vírus do computador","Aumentar a Internet","Salvar downloads em outra pasta"],
+        ans:0,
+        exp:"As abas permitem abrir vários sites dentro do mesmo navegador, facilitando organização e rapidez.",
+        hint:"Aba = várias páginas abertas sem fechar a anterior."
+      },
+      {
+        q:"Qual é a diferença entre Site e Página?",
+        opts:["Página é o conjunto; site é uma parte","Site é o conjunto; página é uma parte específica","Não existe diferença","Página é sempre um link"],
+        ans:1,
+        exp:"Site é o conjunto completo. Página é uma parte específica dentro do site (ex.: página inicial, contato, cursos).",
+        hint:"Site = “tudo”. Página = “uma parte”."
+      },
+      {
+        q:"O que o cadeado 🔒 na barra de endereço indica?",
+        opts:["Que o site é famoso","Que a conexão é segura (HTTPS)","Que o site é gratuito","Que não existe risco nenhum"],
+        ans:1,
+        exp:"O cadeado indica conexão segura (HTTPS), com dados criptografados. Mas cadeado não garante 100% que o site é perfeito.",
+        hint:"🔒 = conexão segura / HTTPS."
+      },
+      {
+        q:"O que é download?",
+        opts:["Abrir um site","Baixar um arquivo da Internet para o dispositivo","Atualizar uma página","Enviar um arquivo para a Internet"],
+        ans:1,
+        exp:"Download é trazer um arquivo da Internet para o seu computador ou celular (ex.: PDF, imagem, vídeo).",
+        hint:"Download = trazer para o seu aparelho."
+      },
+      {
+        q:"Qual cuidado é o mais correto ao baixar arquivos?",
+        opts:["Clicar no primeiro botão grande que aparecer","Baixar programas “milagrosos” porque é mais rápido","Preferir sites oficiais e evitar anúncios falsos","Instalar qualquer arquivo porque “não dá nada”"],
+        ans:2,
+        exp:"Evite botões falsos e arquivos desconhecidos. Prefira sites oficiais e fontes confiáveis para reduzir risco de vírus e golpes.",
+        hint:"Se tem botão demais e propaganda piscando, desconfie."
+      }
+    ];
+
+    /***********************
+     * 1 tentativa por navegador
+     ***********************/
+    const LOCK_KEY = `quiz_lock_${ACTIVITY_ID}`;
+    function isLocked(){ return localStorage.getItem(LOCK_KEY) === "1"; }
+    function lockAttempt(){ localStorage.setItem(LOCK_KEY, "1"); }
+    function unlockAttempt(){ localStorage.removeItem(LOCK_KEY); }
+
+    /***********************
+     * Estado
+     ***********************/
+    let currentIdx=0, score=0, userName="";
+    let startTimeMs=0;
+    let timeLeft=TIME_LIMIT_SEC;
+    let timerInterval=null;
+    let answersForSheet={}; // q1..q10
+
+    let hintUsed = [];
+
+    function pad2(n){ return String(n).padStart(2,"0"); }
+    function formatMMSS(sec){
+      const m=Math.floor(sec/60), s=sec%60;
+      return `${pad2(m)}:${pad2(s)}`;
+    }
+    function updateTimerUI(){
+      const el=document.getElementById("timer");
+      el.textContent=`⏳ ${formatMMSS(timeLeft)}`;
+      if(timeLeft<=60) el.style.background="#dc2626";
+      else if(timeLeft<=300) el.style.background="#b45309";
+      else el.style.background="#0f172a";
+    }
+    function startCountdown(){
+      stopCountdown();
+      updateTimerUI();
+      timerInterval=setInterval(()=>{
+        timeLeft--;
+        if(timeLeft<0) timeLeft=0;
+        updateTimerUI();
+        if(timeLeft<=0){
+          stopCountdown();
+          finishQuiz(true);
+        }
+      },1000);
+    }
+    function stopCountdown(){
+      if(timerInterval){ clearInterval(timerInterval); timerInterval=null; }
+    }
+
+    function setHintButtonState(){
+      const btn = document.getElementById("hintBtn");
+      const sub = document.getElementById("hintSub");
+      const used = !!hintUsed[currentIdx];
+
+      if(used){
+        btn.classList.add("disabled");
+        sub.textContent = "Dica já usada";
+      } else {
+        btn.classList.remove("disabled");
+        sub.textContent = "1x por questão";
+      }
+    }
+
+    function startQuiz(){
+      if(isLocked()){
+        document.getElementById("lockWarn").style.display="block";
+        return;
+      }
+      document.getElementById("lockWarn").style.display="none";
+
+      userName=document.getElementById("fullName").value.trim();
+      if(userName.length<5){ alert("Por favor, digite seu nome completo."); return; }
+
+      currentIdx=0; score=0; answersForSheet={};
+      hintUsed = new Array(QUESTIONS.length).fill(false);
+
+      startTimeMs=Date.now();
+      timeLeft=TIME_LIMIT_SEC;
+      startCountdown();
+
+      document.getElementById("startCard").style.display="none";
+      document.getElementById("quizCard").style.display="block";
+      document.getElementById("resultScreen").style.display="none";
+
+      renderQuestion();
+    }
+
+    function requestReset(){ openResetModal(); }
+
+    function openResetModal(){
+      const overlay = document.getElementById("resetOverlay");
+      const input = document.getElementById("resetPass");
+      overlay.style.display = "flex";
+      input.value = "";
+      setTimeout(()=> input.focus(), 50);
+    }
+
+    function closeResetModal(){
+      document.getElementById("resetOverlay").style.display = "none";
+    }
+
+    function showStatusModal(type, title, desc){
+      const overlay = document.getElementById("statusOverlay");
+      const icon = document.getElementById("statusIcon");
+      const t = document.getElementById("statusTitle");
+      const d = document.getElementById("statusDesc");
+
+      icon.classList.remove("ico-success","ico-danger","ico-primary");
+      if(type==="danger"){
+        icon.classList.add("ico-danger");
+        icon.textContent = "❌";
+      } else if(type==="primary"){
+        icon.classList.add("ico-primary");
+        icon.textContent = "ℹ️";
+      } else {
+        icon.classList.add("ico-success");
+        icon.textContent = "✅";
+      }
+
+      t.textContent = title || "Aviso";
+      d.textContent = desc || "";
+
+      overlay.style.display = "flex";
+    }
+
+    function closeStatusModal(){
+      document.getElementById("statusOverlay").style.display = "none";
+    }
+
+    function confirmResetPassword(){
+      const input = document.getElementById("resetPass");
+      const pass = (input.value || "").trim();
+
+      if(!pass){
+        showStatusModal("primary","Digite a senha","Sem a senha do professor, não dá pra liberar a nova tentativa.");
+        return;
+      }
+
+      if(pass === PROFESSOR_PASSWORD){
+        unlockAttempt();
+        document.getElementById("lockWarn").style.display="none";
+        closeResetModal();
+        showStatusModal("success","Senha correta! 🎉","Nova tentativa liberada. Agora é só clicar em “Começar Atividade”.");
+      } else {
+        closeResetModal();
+        showStatusModal("danger","Senha incorreta","Essa senha não confere. Peça ao professor e tente novamente.");
+      }
+    }
+
+    document.addEventListener("keydown", (e)=>{
+      const resetOpen = document.getElementById("resetOverlay").style.display === "flex";
+      const statusOpen = document.getElementById("statusOverlay").style.display === "flex";
+
+      if(resetOpen && e.key === "Enter"){
+        e.preventDefault();
+        confirmResetPassword();
+      }
+      if((resetOpen || statusOpen) && e.key === "Escape"){
+        if(resetOpen) closeResetModal();
+        if(statusOpen) closeStatusModal();
+      }
+    });
+
+    function renderQuestion(){
+      const q=QUESTIONS[currentIdx];
+      document.getElementById("progress").innerText=`Questão ${currentIdx+1} de ${QUESTIONS.length}`;
+      document.getElementById("qTitle").innerText=q.q;
+
+      const optsDiv=document.getElementById("qOpts");
+      optsDiv.innerHTML="";
+
+      q.opts.forEach((opt,i)=>{
+        const btn=document.createElement("div");
+        btn.className="opt";
+        btn.innerText=opt;
+        btn.onclick=()=>checkAnswer(i);
+        optsDiv.appendChild(btn);
+      });
+
+      document.getElementById("btnNext").style.display="none";
+      setHintButtonState();
+    }
+
+    function checkAnswer(i){
+      const q=QUESTIONS[currentIdx];
+      const opts=document.querySelectorAll(".opt");
+      if(opts.length && opts[0].classList.contains("disabled")) return;
+
+      const isCorrect=(i===q.ans);
+      if(isCorrect) score++;
+
+      const qKey="q"+(currentIdx+1);
+      answersForSheet[qKey]=q.opts[i];
+
+      opts.forEach((opt,idx)=>{
+        opt.classList.add("disabled");
+        if(idx===q.ans) opt.classList.add("correct");
+        if(idx===i && !isCorrect) opt.classList.add("wrong");
+      });
+
+      document.getElementById("feedbackOverlay").style.display="flex";
+      document.getElementById("feedbackTitle").innerText=isCorrect ? "✅ Muito bem!" : "❌ Quase lá...";
+      document.getElementById("feedbackTitle").style.color=isCorrect ? "var(--success)" : "var(--danger)";
+      document.getElementById("feedbackText").innerHTML=
+        `<b>A resposta correta era:</b> ${q.opts[q.ans]}<br><br>${q.exp}`;
+
+      document.getElementById("btnNext").style.display="block";
+    }
+
+    function closeFeedback(){
+      document.getElementById("feedbackOverlay").style.display="none";
+      if(currentIdx===QUESTIONS.length-1) finishQuiz(false);
+    }
+
+    function nextQuestion(){
+      currentIdx++;
+      if(currentIdx>=QUESTIONS.length) return finishQuiz(false);
+      renderQuestion();
+    }
+
+    function showHint(){
+      if(hintUsed[currentIdx]) return;
+      hintUsed[currentIdx] = true;
+      setHintButtonState();
+
+      const q = QUESTIONS[currentIdx];
+      const hint = (q && q.hint) ? q.hint : "Sem dica cadastrada para esta questão.";
+      document.getElementById("hintText").textContent = hint;
+      document.getElementById("hintOverlay").style.display = "flex";
+    }
+    function closeHint(){
+      document.getElementById("hintOverlay").style.display = "none";
+    }
+
+    async function finishQuiz(autoByTime){
+      stopCountdown();
+      lockAttempt();
+
+      document.getElementById("quizCard").style.display="none";
+      document.getElementById("resultScreen").style.display="block";
+
+      let rank="", title="", msg="", emoji="";
+      if(score>=9){
+        rank="Avançado"; title="Incrível!"; msg="Você domina o assunto perfeitamente!"; emoji="🏆";
+      } else if(score>=MIN_SCORE){
+        rank="Intermediário"; title="Parabéns!"; msg="Você atingiu uma boa nota. Continue assim!"; emoji="🥈";
+      } else {
+        rank="Iniciante"; title="Não desanime!"; msg="Faltou pouco. Revise o conteúdo e você melhora na próxima!"; emoji="📚";
+      }
+      if(autoByTime) msg="⏰ O tempo acabou, mas sua tentativa foi enviada automaticamente.";
+
+      document.getElementById("finalScore").innerText=`${score}/${QUESTIONS.length}`;
+      document.getElementById("rankTag").innerText=rank;
+      document.getElementById("rankTag").className="rank-tag " + (
+        rank==="Avançado" ? "rank-avancado" : rank==="Intermediário" ? "rank-intermediario" : "rank-iniciante"
+      );
+      document.getElementById("resultTitle").innerText=title;
+      document.getElementById("resultMsg").innerText=msg;
+      document.getElementById("resultEmoji").innerText=emoji;
+
+      const payload = {
+        action:"submit",
+        activityId: ACTIVITY_ID,
+        name: userName,
+        startedAt: startTimeMs,
+        submittedAt: Date.now(),
+        remainingSeconds: timeLeft,
+        scoreMC: score,
+        levelMC: rank,
+        answers: answersForSheet
+      };
+
+      try{
+        await fetch(SCRIPT_URL, { method:"POST", mode:"no-cors", body: JSON.stringify(payload) });
+      }catch(e){
+        console.log("Erro ao enviar:", e);
+      }
+    }
+
+    function rand(min,max){ return Math.random()*(max-min)+min; }
+    function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+    function spawnLeaves(){
+      const layer=document.getElementById("fallLayer");
+      layer.innerHTML="";
+      const count=26;
+      for(let i=0;i<count;i++){
+        const el=document.createElement("div");
+        el.className="leaf";
+        const size=Math.floor(rand(16,26));
+        el.style.width=size+"px";
+        el.style.height=size+"px";
+        el.style.left=rand(0,100)+"vw";
+        el.style.opacity=rand(0.45,0.85);
+        el.style.backgroundImage=`url('${pick(LEAF_ICONS)}')`;
+        el.style.animationDuration=`${rand(8,16)}s, ${rand(2.6,5.0)}s`;
+        el.style.animationDelay=`-${rand(0,8)}s, 0s`;
+        layer.appendChild(el);
+      }
+    }
+
+    window.addEventListener("load", ()=>{
+      spawnLeaves();
+      updateTimerUI();
+      document.getElementById("lockWarn").style.display = isLocked() ? "block" : "none";
+    });
+  </script>
+</body>
+</html>
